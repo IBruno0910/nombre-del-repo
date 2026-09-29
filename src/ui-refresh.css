@@ -1,0 +1,167 @@
+/* Fresh aviation direction: cool whites, ink blue, open imagery. */
+:root{--ink:#142e43;--muted:#5a7080;--accent:#2879b0;--line:#dce6ed;--cream:#edf4f8;color:var(--ink);background:#fff}
+::selection{background:#b9e0f6;color:#142e43}
+.header{background:#ffffffed;border-color:#e4ecf2}
+.navigation{background:#f1f6f9;border-color:#e7eef4}
+.navigation a:hover{background:#e0edf6;color:#145784}
+.header-contact,.dark{background:#153f5b}
+.header-contact:hover,.dark:hover{background:#19618e}
+.languages span,.languages button{color:#667c8c}
+.languages button[aria-pressed=true]{color:#153f5b}
+.button:focus-visible,a:focus-visible,button:focus-visible{outline-color:#227cb4}
+.hero{min-height:680px;grid-template-columns:1.08fr 1fr;gap:36px;padding-block:62px 75px;isolation:isolate}
+.hero:before{inset:-1px calc((min(1240px,100vw - 112px) - 100vw)/2) 0;background:radial-gradient(ellipse at 80% 38%,#e3f2fd 0,transparent 52%),linear-gradient(160deg,#fff,#f7fbfe);z-index:-1}
+.hero h1{font-size:clamp(58px,5.8vw,84px);font-weight:500;letter-spacing:-4.5px;line-height:1.04}
+.hero h1>span{font-family:'DM Sans',sans-serif;font-style:normal;font-weight:500;letter-spacing:inherit;color:#2986bd}
+.hero-copy>p{font-size:15px;color:#597180;max-width:425px}
+.hero .eyebrow{color:#4b738c;letter-spacing:1.3px}
+.small-line{background:#258ec9}
+.hero-scroll,.hero-index{color:#59788e}
+.hero-scroll svg{background:white;border-color:#d9e6ef}
+.world-art{border:0;border-radius:0;background:none;box-shadow:none;aspect-ratio:1;margin:0;width:auto;isolation:isolate}
+.world-art svg{width:113%;margin-left:-6.5%;filter:drop-shadow(0 26px 35px #3f77951c)}
+.world-monogram{width:36%;top:50%;left:50%;opacity:.92}
+.art-coordinate.top,.art-coordinate.bottom{background:#ffffffbd;border-color:#d3e3ed;color:#4e7a98;font-size:7px;letter-spacing:1px;padding:10px 14px;backdrop-filter:blur(8px)}
+.art-coordinate.top{left:0;top:6%}.art-coordinate.bottom{right:0;bottom:4%}
+.art-cross{color:#468dbb;right:5%;top:8%}
+.flight-planner{background:#fff;border:1px solid #dce7ee;border-radius:14px;padding:29px 30px;margin-top:0;margin-bottom:22px;box-shadow:0 14px 44px #234f7410;z-index:2}
+.flight-heading .eyebrow{color:#3284b6}
+.flight-heading h2{font-weight:500;font-size:27px}
+.flight-heading>svg,.flight-row .swap-flight{color:#347eaa}
+.flight-types input{accent-color:#287ead}
+.flight-types label{color:#48677c}
+.flight-row>label{color:#526f82}
+.flight-row input{border-color:#cbdde9;color:#193a50}
+.flight-row input:focus{outline-color:#66a5cc}
+.flight-note{color:#6a8292}
+.segment-strip{border-color:#e8eef3}
+.segment-strip>.container{border:0;padding-block:20px}
+.segment-strip span{color:#567184}
+.segment-dot{background:#5d9ec5}
+.aviation-panorama{margin-top:25px;position:relative}
+.aviation-panorama .hero-photo{margin:0;display:block;width:100%}
+.aviation-panorama .photo-frame{height:360px;min-height:0;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none;position:relative}
+.aviation-panorama .photo-frame img{position:absolute;inset:0;object-position:center 56%;height:100%;width:100%}
+.aviation-panorama figcaption{margin:0;padding:15px max(40px,calc((100vw - 1240px)/2));background:#f3f7fa;color:#527185}
+.aviation-image figcaption>span:last-child{color:#628aa4}
+.section{padding-block:90px}
+.section-heading .eyebrow,.perspective-copy>.eyebrow,.contact-copy>.eyebrow{color:#3486b8}
+.section-heading h2,.perspective-copy h2{font-weight:500}
+.section-heading>p,.service-row p,.process-grid p{color:#617788}
+.service-row{border-color:#dfE8ef;border-radius:12px;background:#fff;box-shadow:none}
+.service-row:first-child{background:linear-gradient(140deg,#eaf5fc,#f6fafd);border-color:#cde4f2}
+.service-row:hover{background:#f4f9fd;border-color:#81b5d6;box-shadow:0 18px 38px #2462880b}
+.service-icon{background:#eff7fc;border-color:#daeaf4;color:#267fae;border-radius:12px}
+.service-number{color:#7a98ab}
+.service-row h3{font-weight:500;color:#1d4058}
+.service-more{color:#47728c}
+.circle-arrow{border-color:#d4e6f1;background:#f6fbfe;color:#277eaF}
+.service-row:hover .circle-arrow{background:#186595;border-color:#186595}
+.perspective{background:#edf5fa}
+.perspective-copy>p,.values p{color:#5e778a}
+.values>div{border-color:#d3e3ee}
+.values svg{background:#dbeef9;color:#2c81b2}
+.perspective-photo .photo-frame{border:0}
+.perspective-photo figcaption{background:#edf5fa;color:#597c94}
+.process-grid article{border:0;border-top:1px solid #d0e2ee;border-radius:0;background:none;padding:25px 15px 12px 0}
+.process-number>span{background:#eaf4fb;color:#267eaf}
+.process-number>svg,.approach-arrow{color:#64a1c8}
+.process-grid h3{font-weight:500}
+.contact-section{background:radial-gradient(ellipse at 5% 80%,#235b7a 0,transparent 65%),#112f46;border:0;color:#fff}
+.contact-copy>.eyebrow{color:#8acbf0}
+.contact-copy h2{font-weight:500;color:#fff}
+.contact-copy>p{color:#b7cddd}
+.email-link{color:#d9effb}
+.contact-signature{background:#fff;border-radius:9px;padding:15px 18px;display:inline-flex;margin-top:40px}
+.contact-signature span{color:#4b6d83}
+.contact-form{background:#fff;border:0;border-radius:14px;color:#173b52;box-shadow:0 20px 45px #061b2b20}
+.contact-form input,.contact-form select,.contact-form textarea,.flight-details input,.flight-details textarea{background:#f4f8fb;border-color:#d7e5ee;color:#173b52}
+.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{outline-color:#64a9d3;background:#fff}
+.contact-form small,.form-notice{color:#627c8d}
+.contact-form .button{background:#176b9d}
+.contact-form .button:hover{background:#12547c}
+.footer-top p,.operational-note,.footer-bottom{color:#647b8c}
+.footer-bottom{border-color:#e0e9ef}
+.back-top{color:#247bae}
+.modal{background:#fff;border-color:#dce8f0;color:#183d57}
+.modal .modal-tagline{font-family:inherit;color:#3789b9;font-weight:400}
+.modal>p{color:#5d778a}
+.modal::backdrop{background:#0a223c85}
+.inquiry-summary{background:#eef6fb;color:#214960}
+.flight-summary{border-color:#d4e5f1}
+.legal-page>p{color:#5c7385}
+.success-icon{background:#dff0f7;color:#18769c}
+.submission-success p{color:#53758b}
+@media(max-width:1100px){.hero{min-height:640px;gap:25px}.hero:before{inset:-1px -36px 0}.hero h1{font-size:64px;letter-spacing:-3.5px}.flight-planner{padding:25px}.aviation-panorama .photo-frame{height:320px}.service-row h3{font-size:21px}}
+@media(max-width:800px){.hero{min-height:580px;gap:12px}.hero:before{inset:-1px -24px 0}.hero h1{font-size:53px;letter-spacing:-2.8px}.hero-copy>p{font-size:13px}.hero .eyebrow{font-size:8px}.world-art{width:auto;margin:0}.art-coordinate.top,.art-coordinate.bottom{font-size:5px;padding:7px 10px}.navigation{background:#fff;border-bottom:1px solid #dce8f0}.flight-planner{padding:24px}.aviation-panorama .photo-frame{height:280px}.contact-signature{display:none}.section{padding-block:70px}}
+@media(max-width:560px){.hero{min-height:0;padding-block:43px 50px;gap:0}.hero:before{inset:0 -20px}.hero h1{font-size:57px;letter-spacing:-3.2px}.hero .eyebrow{font-size:7px}.hero-copy>p{font-size:14px}.world-art{width:90%;max-width:370px;margin:27px auto 22px;aspect-ratio:1}.world-art svg{width:113%;margin-left:-6.5%}.world-monogram{top:50%;width:36%}.art-coordinate.top{top:5%;left:0}.art-coordinate.bottom{bottom:1%;right:0}.art-cross{top:6%;right:3%}.hero-scroll{bottom:10px}.hero-index{bottom:21px}.flight-planner{padding:24px 19px;margin-top:15px;width:calc(100% - 28px);margin-bottom:14px;border-radius:12px}.flight-heading h2{font-size:24px}.flight-row .swap-flight{background:white;border-color:#cddfea;color:#3080b0}.flight-note{font-size:10px}.segment-strip>.container{gap:12px}.segment-strip span{font-size:9px}.aviation-panorama{margin-top:15px}.aviation-panorama .photo-frame{height:245px}.aviation-panorama figcaption{padding:12px 20px}.aviation-panorama figcaption>span:last-child{display:none}.section{padding-block:57px}.section-heading h2{font-size:34px}.service-row{border-radius:10px}.service-row h3{font-size:24px}.contact-copy h2{font-size:49px}.contact-section{padding-block:55px}.contact-form{border-radius:12px}.process-grid article{padding:22px 0 15px}.photo-frame img{transform:none!important}}
+@media(max-width:360px){.hero h1{font-size:48px;letter-spacing:-2.8px}.hero .eyebrow{font-size:6px}.flight-heading h2{font-size:21px}.flight-types{gap:12px}.segment-strip span{font-size:8px}}
+
+/* Editorial photography: an asymmetric landscape and an oval engine study. */
+.aviation-panorama{width:min(1300px,calc(100% - 96px));margin:62px auto 12px;padding-bottom:26px}
+.aviation-panorama .hero-photo{display:grid;grid-template-columns:minmax(155px,.24fr) 1fr;column-gap:40px;align-items:center;position:relative;isolation:isolate}
+.aviation-panorama .hero-photo:before{content:'';position:absolute;z-index:-1;right:28px;top:25px;bottom:-23px;width:68%;border:1px solid #c8dfed;border-radius:8px 125px 8px 8px;pointer-events:none}
+.aviation-panorama .photo-frame{grid-column:2;grid-row:1;height:410px;min-height:0;border-radius:8px 110px 8px 8px;background:#e8f1f6;overflow:hidden}
+.aviation-panorama .photo-frame img{object-position:50% 56%}
+.aviation-panorama figcaption{grid-column:1;grid-row:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:23px;padding:0 0 0 8px;margin:0;background:none;color:#20465f;position:relative;line-height:1.25}
+.aviation-panorama figcaption>span:first-child{font-size:clamp(23px,2.2vw,32px);letter-spacing:-1.1px;max-width:200px;font-weight:400}
+.aviation-panorama figcaption>span:last-child{order:-1;display:block;font-size:8px;letter-spacing:1.8px;color:#4284ae;white-space:normal}
+.aviation-panorama figcaption:after{content:'';width:57px;height:1px;background:#89b5d1;margin-top:5px}
+.perspective{background:linear-gradient(110deg,#f6fafe,#ecf5fb);padding-block:60px}
+.perspective-grid{gap:90px;align-items:center}
+.perspective-photo{margin:0;padding:0 18px 0 30px;position:relative;isolation:isolate;display:block}
+.perspective-photo:before{content:'';position:absolute;z-index:-1;inset:25px 0 55px 7px;border:1px solid #bcd8e9;border-radius:48% 48% 44% 44%;transform:rotate(-9deg);pointer-events:none}
+.perspective-photo .photo-frame{height:540px;min-height:0;border:0;border-radius:48% 48% 44% 44%;overflow:hidden;background:#e1ebf1;position:relative}
+.perspective-photo .photo-frame img{object-position:49% 39%;width:100%;height:100%;object-fit:cover}
+.perspective-photo figcaption{display:flex;align-items:center;justify-content:space-between;gap:15px;background:none;margin:23px 0 0;padding:0 10px;color:#597c94}
+.perspective-copy{padding-block:20px}
+@media(max-width:1100px){.aviation-panorama{width:calc(100% - 72px);margin-top:48px}.aviation-panorama .hero-photo{column-gap:26px;grid-template-columns:155px 1fr}.aviation-panorama .photo-frame{height:360px;border-top-right-radius:85px}.aviation-panorama .hero-photo:before{border-top-right-radius:100px;right:20px}.perspective-grid{gap:55px}.perspective-photo{padding-left:18px;padding-right:12px}.perspective-photo .photo-frame{height:490px}.perspective-photo figcaption{padding:0;font-size:9px;gap:8px}.perspective-photo figcaption>span:last-child{font-size:6px}}
+@media(max-width:800px){.aviation-panorama{width:calc(100% - 48px);margin-top:38px}.aviation-panorama .hero-photo{grid-template-columns:1fr;gap:0}.aviation-panorama .photo-frame{grid-column:1;grid-row:2;height:330px;border-top-right-radius:90px}.aviation-panorama figcaption{grid-column:1;grid-row:1;flex-direction:row;align-items:end;justify-content:space-between;margin-bottom:22px;padding:0 3px;gap:20px}.aviation-panorama figcaption>span:first-child{max-width:310px;font-size:27px;letter-spacing:-.8px}.aviation-panorama figcaption>span:last-child{order:0;font-size:7px;white-space:nowrap}.aviation-panorama figcaption:after{display:none}.aviation-panorama .hero-photo:before{top:88px;bottom:-17px;right:18px;width:82%}.perspective{padding-block:45px}.perspective-grid{gap:30px}.perspective-photo{padding-left:12px;padding-right:9px}.perspective-photo .photo-frame{height:455px}.perspective-photo figcaption{flex-direction:column;align-items:center;gap:6px;text-align:center}.perspective-copy{padding-block:0}}
+@media(max-width:560px){.aviation-panorama{width:calc(100% - 40px);margin:35px auto 5px;padding-bottom:20px}.aviation-panorama figcaption{align-items:start;gap:20px;margin-bottom:19px}.aviation-panorama figcaption>span:first-child{font-size:24px;max-width:210px;line-height:1.2}.aviation-panorama figcaption>span:last-child{display:block;font-size:6px;max-width:60px;white-space:normal;line-height:1.8;letter-spacing:1px;margin-top:4px}.aviation-panorama .photo-frame{height:auto;min-height:0;aspect-ratio:1.25;border-radius:5px 68px 5px 5px}.aviation-panorama .photo-frame img{object-position:47% 55%}.aviation-panorama .hero-photo:before{top:87px;right:14px;bottom:-14px;border-radius:5px 78px 5px 5px}.perspective{padding-block:42px}.perspective-grid{gap:30px}.perspective-photo{order:2;width:min(330px,100%);margin:0 auto;padding:0 14px}.perspective-photo .photo-frame{height:auto;min-height:0;aspect-ratio:.82;border-radius:48% 48% 44% 44%}.perspective-photo .photo-frame img{object-position:50% 38%}.perspective-photo:before{inset:17px 0 57px 6px}.perspective-photo figcaption{margin-top:19px;padding:0;gap:7px}.perspective-photo figcaption>span:first-child{font-size:10px}.perspective-photo figcaption>span:last-child{font-size:6px}.perspective-copy{padding:0}}
+@media(max-width:560px){.perspective-photo:before{inset:17px 10px 57px;transform:rotate(-4deg)}}
+
+/* Original formation photograph, veiled behind the existing globe. */
+.hero:before{
+  background-image:
+    linear-gradient(0deg,#f7fbfe 0%,#f7fbfe00 24%,#f7fbfe00 80%,#f7fbfe80 100%),
+    linear-gradient(90deg,#f7fbfefa 0%,#f7fbfef0 31%,#f7fbfee6 42%,#eaf5fc80 61%,#edf7fc70 100%),
+    url('/images/formation-flight.jpg');
+  background-size:cover;
+  background-position:center,center,center 57%;
+  background-repeat:no-repeat;
+}
+.world-art svg{filter:drop-shadow(0 20px 38px #30638824)}
+.art-coordinate.top,.art-coordinate.bottom{background:#ffffffd9}
+@media(max-width:800px){
+  .hero:before{background-image:
+    linear-gradient(0deg,#f7fbfe 0%,#f7fbfe00 25%,#f7fbfe40 80%,#f7fbfec9 100%),
+    linear-gradient(90deg,#f7fbfafa 0%,#f7fbfeeb 40%,#f7fbfe99 65%,#eaf5fc80 100%),
+    url('/images/formation-flight-small.jpg');background-position:center,center,53% center}
+}
+@media(max-width:560px){
+  .hero:before{background-image:
+    linear-gradient(180deg,#f7fbfe 0%,#f7fbfef7 35%,#edf7fc8c 54%,#edf7fc80 79%,#f7fbfe 100%),
+    url('/images/formation-flight-small.jpg');background-size:cover,auto 70%;background-position:center,53% 80%;background-color:#f7fbfe}
+}
+
+/* Transparent globe: preserve the mark while letting the photograph show through. */
+.world-art svg{filter:drop-shadow(0 12px 28px #376b880c)}
+.world-monogram{opacity:1}
+.art-coordinate.top,.art-coordinate.bottom{
+  background:linear-gradient(120deg,#ffffff55,#f0f8ff25);
+  border-color:#ffffff8c;
+  box-shadow:inset 0 1px 0 #ffffff66,0 4px 16px #204a6505;
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  color:#3d6d8c;
+}
+.art-cross{opacity:.6}
+
+/* Keep fine text readable over the stronger photograph. */
+.hero-copy>p{color:#425f73}
+.art-coordinate.top,.art-coordinate.bottom{color:#244f6c;background:linear-gradient(120deg,#ffffff99,#f0f8ff73)}
+
+/* Recolor the champagne accent while preserving original logo pixels and alpha. */
+.brand img,.world-monogram,.contact-signature img{
+  filter:hue-rotate(170deg) saturate(1.65);
+}

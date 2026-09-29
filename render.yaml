@@ -1,0 +1,35 @@
+# Local deployment proposal. Importing this Blueprint creates a PAID service.
+# Review current price in Render before confirming; no service has been created.
+services:
+  - type: web
+    name: open-world-aviation
+    runtime: node
+    plan: 0.5c-512mb
+    numInstances: 1
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /healthz
+    autoDeployTrigger: off
+    envVars:
+      - key: NODE_VERSION
+        value: 22.22.0
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: SITE_ORIGIN
+        sync: false
+      - key: MAIL_TRANSPORT
+        value: smtp
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "465"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: MAIL_FROM
+        value: Open World Aviation <contact@openworldaviation.com>
+      - key: SEND_AUTOREPLY
+        value: "true"

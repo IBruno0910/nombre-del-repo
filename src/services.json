@@ -1,0 +1,96 @@
+{
+  "es": [
+    {
+      "title": "Gestión de aeronaves",
+      "paragraphs": [
+        "Brindamos soluciones personalizadas de gestión, diseñadas en función de cada propietario, aeronave y tipo de operación.",
+        "Desde la operación diaria y coordinación de tripulaciones hasta la supervisión de mantenimiento, presupuestos, reportes, seguros y proveedores, integramos los distintos aspectos de la gestión de la aeronave bajo un único punto de contacto.",
+        "Nuestro enfoque se basa en la seguridad, transparencia, eficiencia y preservación del valor del activo, permitiendo que el propietario disfrute de los beneficios de su aeronave sin tener que ocuparse de la complejidad que existe detrás de cada operación."
+      ],
+      "tagline": "Simplificamos la experiencia de ser propietario de una aeronave."
+    },
+    {
+      "title": "Charter privado y soporte de vuelo",
+      "paragraphs": [
+        "Brindamos acceso a una red global de operadores y aeronaves, seleccionando para cada misión la alternativa más adecuada en función de seguridad, disponibilidad, prestaciones y valor.",
+        "Además del vuelo, podemos coordinar cada detalle del viaje, incluyendo planificación, permisos, handling, transporte terrestre, catering y otros requerimientos específicos.",
+        "Un único punto de contacto, desde la solicitud hasta la llegada."
+      ],
+      "tagline": "La aeronave adecuada. La solución adecuada. Donde necesite ir."
+    },
+    {
+      "title": "Venta y adquisición de aeronaves",
+      "paragraphs": [
+        "Asesoramos a nuestros clientes durante todo el proceso de compra y venta de aeronaves privadas, combinando conocimiento del mercado, relaciones dentro de la industria y experiencia operacional.",
+        "Nuestros servicios incluyen búsqueda y selección de aeronaves, oportunidades on-market y off-market, análisis de mercado, soporte en valuaciones, negociación, coordinación de inspecciones pre-compra, asistencia contractual y entrega de la aeronave.",
+        "Nuestro objetivo es simple: proteger los intereses de nuestros clientes durante cada etapa de la transacción."
+      ],
+      "tagline": "Asesoramiento independiente. Acceso al mercado global."
+    },
+    {
+      "title": "Consultoría aeronáutica y soluciones corporativas",
+      "paragraphs": [
+        "Brindamos consultoría aeronáutica independiente a propietarios, empresas, inversores y operadores que enfrentan decisiones operativas, financieras o estratégicas.",
+        "Desde el análisis de aeronaves y flotas hasta estructuras operativas, evaluación de costos, desarrollo de departamentos de vuelo y proyectos aeronáuticos especiales, desarrollamos soluciones prácticas adaptadas a los objetivos específicos de cada cliente.",
+        "Nuestra perspectiva combina experiencia operacional, visión empresarial y conocimiento global de la industria."
+      ],
+      "tagline": "Experiencia aplicada a mejores decisiones aeronáuticas."
+    },
+    {
+      "title": "Soporte y logística de aeronaves",
+      "paragraphs": [
+        "A través de nuestra red internacional, asistimos a propietarios y operadores ante necesidades críticas o sensibles al tiempo, incluyendo búsqueda de repuestos, coordinación de soporte AOG, componentes, equipamiento y logística aeronáutica especializada.",
+        "Trabajamos para identificar la solución adecuada, coordinar los recursos necesarios y minimizar el impacto sobre la operación, independientemente de dónde se encuentre la aeronave.",
+        "Respuesta ágil. Recursos confiables. Soporte global."
+      ],
+      "tagline": "Cuando su aeronave necesita una solución, ayudamos a hacerla posible."
+    }
+  ],
+  "en": [
+    {
+      "title": "Aircraft management",
+      "paragraphs": [
+        "We provide personalized aircraft management solutions designed around each owner, aircraft and mission.",
+        "From daily operations and crew coordination to maintenance oversight, budgeting, reporting, insurance and vendor management, we bring every aspect of aircraft ownership together under one trusted point of contact.",
+        "Our approach is built around safety, transparency, efficiency and long-term asset value, allowing owners to enjoy the benefits of their aircraft without managing the complexity behind it."
+      ],
+      "tagline": "Ownership, simplified."
+    },
+    {
+      "title": "Private charter and flight support",
+      "paragraphs": [
+        "We provide access to a global network of qualified operators and aircraft, identifying the most suitable option for each mission based on safety, availability, performance and value.",
+        "Beyond the flight itself, we can coordinate every detail of the journey, including trip planning, permits, handling, ground transportation, catering and other specific requirements.",
+        "One point of contact, from request to arrival."
+      ],
+      "tagline": "The right aircraft. The right solution. Wherever you need to go."
+    },
+    {
+      "title": "Aircraft sales and acquisitions",
+      "paragraphs": [
+        "We advise clients throughout the acquisition and sale of private aircraft, combining market intelligence, industry relationships and operational experience.",
+        "Our services include aircraft sourcing, on-market and off-market opportunities, market analysis, valuation support, negotiations, pre-purchase inspection coordination, contract support and aircraft delivery.",
+        "Our objective is simple: protect our client's interests throughout every stage of the transaction."
+      ],
+      "tagline": "Independent guidance. Global market access."
+    },
+    {
+      "title": "Aviation consulting and corporate solutions",
+      "paragraphs": [
+        "We provide independent aviation consulting to aircraft owners, companies, investors and operators facing operational, financial or strategic decisions.",
+        "From aircraft and fleet analysis to operating structures, cost evaluation, flight department development and special aviation projects, we develop practical solutions around each client's specific objectives.",
+        "Our perspective combines operational experience, business understanding and global industry knowledge."
+      ],
+      "tagline": "Experience applied to better aviation decisions."
+    },
+    {
+      "title": "Aircraft support and logistics",
+      "paragraphs": [
+        "Through our international network, we assist owners and operators with time-sensitive aircraft requirements, including parts sourcing, AOG support coordination, components, equipment and specialized aviation logistics.",
+        "We work to identify the right solution, coordinate the necessary resources and minimize operational disruption wherever the aircraft may be.",
+        "Fast response. Trusted resources. Global support."
+      ],
+      "tagline": "When your aircraft needs a solution, we help make it happen."
+    }
+  ]
+}
