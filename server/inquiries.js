@@ -76,7 +76,7 @@ export async function sendViaResend(email, key, env) {
 export async function sendViaSmtp(email, key, env) {
   const port = Number(env.SMTP_PORT || 465);
   const transport = nodemailer.createTransport({
-    host: env.SMTP_HOST || 'smtp.gmail.com', port, secure: port === 465, requireTLS: true,
+    host: env.SMTP_HOST || 'smtp.gmail.com', port, secure: port === 465, requireTLS: port !== 465,
     auth: { user: env.SMTP_USER, pass: env.SMTP_PASS },
     connectionTimeout: 10000, greetingTimeout: 10000, socketTimeout: 15000,
     disableFileAccess: true, disableUrlAccess: true,
@@ -93,7 +93,15 @@ export async function sendViaSmtp(email, key, env) {
 export function mailConfigured(env) {
   return Boolean(env.MAIL_FROM && (env.MAIL_TRANSPORT === 'resend' ? env.RESEND_API_KEY : env.SMTP_USER && env.SMTP_PASS));
 }
-export function createInquiryHandler({ env = process.env, send = (email,key,config) => config.MAIL_TRANSPORT === 'resend' ? sendViaResend(email,key,config) : sendViaSmtp(email,key,config) } = {}) {
+export function safeMailError(error) {
+  const detail = { name: typeof error?.name === 'string' ? error.name : 'Error' };
+  for (const property of ['code', 'command', 'syscall']) {
+    if (typeof error?.[property] === 'string') detail[property] = error[property].slice(0, 80);
+  }
+  if (Number.isInteger(error?.responseCode)) detail.responseCode = error.responseCode;
+  return detail;
+}
+export function createInquiryHandler({ env = process.env, send = (email,key,config) => config.MAIL_TRANSPORT === 'resend' ? sendViaResend(email,key,config) : sendViaSmtp(email,key,config), logger = console } = {}) {
   const buckets = new Map();
   // Deduplicate both concurrent submissions and retries while this server is running.
   // A single persistent instance is required for SMTP; see deployment notes.
@@ -133,11 +141,17 @@ export function createInquiryHandler({ env = process.env, send = (email,key,conf
     const digest = createHash('sha256').update(JSON.stringify(data)).digest('hex');
     const key = `owa/${input.requestId}/${digest}`;
     try { await deliver(leadEmail(data, env.MAIL_FROM), `${key}/lead`); }
-    catch { return respond(502, { code: 'send_failed' }); }
+    catch (error) {
+      logger.error('mail_delivery_failed', safeMailError(error));
+      return respond(502, { code: 'send_failed' });
+    }
     let receipt = 'disabled';
     if (env.SEND_AUTOREPLY === 'true') {
       try { await deliver(receiptEmail(data, env.MAIL_FROM), `${key}/receipt`); receipt = 'accepted'; }
-      catch { receipt = 'failed'; }
+      catch (error) {
+        logger.error('mail_receipt_failed', safeMailError(error));
+        receipt = 'failed';
+      }
     }
     return respond(200, { ok: true, receipt });
   };

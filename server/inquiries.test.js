@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Readable } from 'node:stream';
 import { randomUUID } from 'node:crypto';
-import { createInquiryHandler, validateInquiry, leadEmail, receiptEmail } from './inquiries.js';
+import { createInquiryHandler, validateInquiry, leadEmail, receiptEmail, safeMailError } from './inquiries.js';
 const env = { SMTP_USER:'test@example.com', SMTP_PASS:'test-only', MAIL_FROM:'Open World Aviation <contact@openworldaviation.com>', SEND_AUTOREPLY:'true', SITE_ORIGIN:'https://example.com' };
 const base = () => ({ kind:'contact',language:'en',name:'Test Visitor',email:'visitor@example.com',phone:'',company:'',message:'Acquisition inquiry',service:2,requestId:randomUUID(),website:'' });
 const future = days => new Date(Date.now()+days*86400000).toISOString().slice(0,10);
@@ -22,13 +22,21 @@ test('routes owner email correctly and sends visitor receipt only after owner ac
   await request(handler,input);assert.equal(calls.length,2,'retry must not send duplicate lead or receipt');
 });
 test('failed lead does not claim success or send an acknowledgment',async()=>{
-  let calls=0;const handler=createInquiryHandler({env,send:async()=>{calls++;throw new Error('rejected');}});
+  let calls=0;const logs=[];const failure=new Error('rejected visitor@example.com');failure.code='EAUTH';failure.responseCode=535;failure.command='AUTH PLAIN';
+  const handler=createInquiryHandler({env,send:async()=>{calls++;throw failure;},logger:{error:(...entry)=>logs.push(entry)}});
   const result=await request(handler,base());assert.equal(result.status,502);assert.equal(result.body.ok,undefined);assert.equal(calls,1);
+  assert.deepEqual(logs,[['mail_delivery_failed',{name:'Error',code:'EAUTH',command:'AUTH PLAIN',responseCode:535}]]);
+  assert.doesNotMatch(JSON.stringify(logs),/visitor@example\.com|rejected/);
 });
 test('receipt failure preserves successful lead and avoids duplicate lead on retry',async()=>{
-  let calls=0;const input=base();const handler=createInquiryHandler({env,send:async()=>{calls++;if(calls===2)throw new Error('receipt failure');return 'accepted';}});
+  let calls=0;const input=base();const handler=createInquiryHandler({env,send:async()=>{calls++;if(calls===2)throw new Error('receipt failure');return 'accepted';},logger:{error:()=>{}}});
   const result=await request(handler,input);assert.equal(result.body.ok,true);assert.equal(result.body.receipt,'failed');
   const retry=await request(handler,input);assert.equal(retry.body.receipt,'accepted');assert.equal(calls,3);
+});
+test('mail diagnostics expose only bounded provider metadata',()=>{
+  const error=new Error('secret test-only visitor@example.com');error.code='E'.repeat(100);error.syscall='connect';error.response='535 private provider response';
+  assert.deepEqual(safeMailError(error),{name:'Error',code:'E'.repeat(80),syscall:'connect'});
+  assert.doesNotMatch(JSON.stringify(safeMailError(error)),/secret|test-only|visitor|private/);
 });
 test('unconfigured transport fails honestly and never invokes delivery',async()=>{
   const handler=createInquiryHandler({env:{SITE_ORIGIN:'https://example.com'},send:async()=>assert.fail('must not send')});
