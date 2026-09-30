@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Readable } from 'node:stream';
 import { randomUUID } from 'node:crypto';
-import { createInquiryHandler, validateInquiry, leadEmail, receiptEmail, safeMailError } from './inquiries.js';
+import { createInquiryHandler, validateInquiry, leadEmail, receiptEmail, safeMailError, smtpAuth } from './inquiries.js';
 const env = { SMTP_USER:'test@example.com', SMTP_PASS:'test-only', MAIL_FROM:'Open World Aviation <contact@openworldaviation.com>', SEND_AUTOREPLY:'true', SITE_ORIGIN:'https://example.com' };
 const base = () => ({ kind:'contact',language:'en',name:'Test Visitor',email:'visitor@example.com',phone:'',company:'',message:'Acquisition inquiry',service:2,requestId:randomUUID(),website:'' });
 const future = days => new Date(Date.now()+days*86400000).toISOString().slice(0,10);
@@ -37,6 +37,9 @@ test('mail diagnostics expose only bounded provider metadata',()=>{
   const error=new Error('secret test-only visitor@example.com');error.code='E'.repeat(100);error.syscall='connect';error.response='535 private provider response';
   assert.deepEqual(safeMailError(error),{name:'Error',code:'E'.repeat(80),syscall:'connect'});
   assert.doesNotMatch(JSON.stringify(safeMailError(error)),/secret|test-only|visitor|private/);
+});
+test('SMTP credentials tolerate copied app-password spacing',()=>{
+  assert.deepEqual(smtpAuth({SMTP_USER:' fernando@example.com ',SMTP_PASS:'abcd efgh ijkl mnop'}),{user:'fernando@example.com',pass:'abcdefghijklmnop'});
 });
 test('unconfigured transport fails honestly and never invokes delivery',async()=>{
   const handler=createInquiryHandler({env:{SITE_ORIGIN:'https://example.com'},send:async()=>assert.fail('must not send')});

@@ -73,11 +73,14 @@ export async function sendViaResend(email, key, env) {
   if (!response.ok || !result.id) throw new Error('provider_error');
   return result.id;
 }
+export function smtpAuth(env) {
+  return { user: env.SMTP_USER.trim(), pass: env.SMTP_PASS.replace(/\s/g, '') };
+}
 export async function sendViaSmtp(email, key, env) {
   const port = Number(env.SMTP_PORT || 465);
   const transport = nodemailer.createTransport({
     host: env.SMTP_HOST || 'smtp.gmail.com', port, secure: port === 465, requireTLS: port !== 465,
-    auth: { user: env.SMTP_USER, pass: env.SMTP_PASS },
+    auth: smtpAuth(env),
     connectionTimeout: 10000, greetingTimeout: 10000, socketTimeout: 15000,
     disableFileAccess: true, disableUrlAccess: true,
   });
