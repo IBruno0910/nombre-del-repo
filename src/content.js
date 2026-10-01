@@ -50,5 +50,9 @@ export const copy = {
   }
 };
 export const legalPaths = ['/privacy', '/terms', '/cookies', '/legal-disclaimer'];
-// Confirm these company contacts before enabling outbound inquiry links.
-export const contacts = { email: 'contact@openworldaviation.com', whatsapp: '' };
+export const contacts = {
+  email: 'contact@openworldaviation.com',
+  whatsapp: '13054305398',
+  phone: '+1 (305) 430-5398',
+  instagram: 'https://www.instagram.com/openworldaviation?stkn=MWs3aXd5OG9rZ29sag%3D%3D',
+};

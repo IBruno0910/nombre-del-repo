@@ -120,6 +120,13 @@
 @media(max-width:560px){.aviation-panorama{width:calc(100% - 40px);margin:35px auto 5px;padding-bottom:20px}.aviation-panorama figcaption{align-items:start;gap:20px;margin-bottom:19px}.aviation-panorama figcaption>span:first-child{font-size:24px;max-width:210px;line-height:1.2}.aviation-panorama figcaption>span:last-child{display:block;font-size:6px;max-width:60px;white-space:normal;line-height:1.8;letter-spacing:1px;margin-top:4px}.aviation-panorama .photo-frame{height:auto;min-height:0;aspect-ratio:1.25;border-radius:5px 68px 5px 5px}.aviation-panorama .photo-frame img{object-position:47% 55%}.aviation-panorama .hero-photo:before{top:87px;right:14px;bottom:-14px;border-radius:5px 78px 5px 5px}.perspective{padding-block:42px}.perspective-grid{gap:30px}.perspective-photo{order:2;width:min(330px,100%);margin:0 auto;padding:0 14px}.perspective-photo .photo-frame{height:auto;min-height:0;aspect-ratio:.82;border-radius:48% 48% 44% 44%}.perspective-photo .photo-frame img{object-position:50% 38%}.perspective-photo:before{inset:17px 0 57px 6px}.perspective-photo figcaption{margin-top:19px;padding:0;gap:7px}.perspective-photo figcaption>span:first-child{font-size:10px}.perspective-photo figcaption>span:last-child{font-size:6px}.perspective-copy{padding:0}}
 @media(max-width:560px){.perspective-photo:before{inset:17px 10px 57px;transform:rotate(-4deg)}}
 
+.footer-social{display:inline-flex;align-items:center;gap:7px;font-size:10px;white-space:nowrap}
+.whatsapp-fab{position:fixed;left:22px;bottom:22px;z-index:45;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;background:#25d366;box-shadow:0 10px 28px #173c2750;transition:transform .2s,box-shadow .2s}
+.whatsapp-fab:hover{transform:translateY(-3px);box-shadow:0 14px 32px #173c2760}
+.whatsapp-fab:focus-visible{outline-color:#153f5b}
+@media(max-width:800px){.footer-bottom{align-items:center}.footer-social span{display:none}}
+@media(max-width:560px){.whatsapp-fab{left:16px;bottom:16px;width:54px;height:54px}}
+
 /* Original formation photograph, veiled behind the existing globe. */
 .hero:before{
   background-image:

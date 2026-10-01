@@ -13,6 +13,7 @@ test('English home loads assets, all five services and Spanish translation', asy
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), JSON.stringify(await page.evaluate(() => [...document.querySelectorAll("body *")].filter(el => { const r=el.getBoundingClientRect(); return r.right > innerWidth + 1 && r.width > 0; }).map(el => ({tag:el.tagName,cls:el.className,right:el.getBoundingClientRect().right}))))).toBe(true);
   await page.screenshot({ animations: 'disabled', path: 'artifacts/owa-desktop.png', fullPage: true });
   await page.getByRole('button', { name: 'Cambiar a español' }).click();
+  await expect(page).toHaveURL(/\/es$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(page.locator('h1')).toContainText('Un mundo de');
   await expect(page.locator('.service-row').first()).toContainText('Gestión de aeronaves');
@@ -49,7 +50,7 @@ test('service inquiry submits to the API and confirms only after acceptance', as
 });
 
 test('form requires valid input and charter description preserves operator distinction', async ({ page }) => {
-  await page.goto('/?lang=es');
+  await page.goto('/es');
   await page.getByRole('button', { name: 'Preparar consulta' }).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await page.getByRole('button', { name: 'Charter privado y soporte de vuelo — Conocer más' }).click();
@@ -58,18 +59,28 @@ test('form requires valid input and charter description preserves operator disti
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 
-test('legal URLs open independently and retain language with clear draft status', async ({ page }) => {
-  for (const path of ['/privacy', '/terms', '/cookies', '/legal-disclaimer']) {
-    await page.goto(`${path}?lang=es`);
-    await expect(page.locator('.draft-notice')).toContainText('Borrador para revisión');
-    await expect(page.locator('.legal-page mark').first()).toBeVisible();
+test('localized legal URLs retain language and publish completed privacy and terms', async ({ page }) => {
+  for (const path of ['/privacy', '/terms']) {
+    await page.goto(`/es${path}`);
+    await expect(page.locator('.draft-notice')).toHaveCount(0);
+    await expect(page.locator('.legal-page mark')).toHaveCount(0);
+    await expect(page.locator('.legal-page')).toContainText('Open World Aviation LLC');
+    await expect(page.locator('.legal-page')).toContainText('contact@openworldaviation.com');
     await expect(page.locator('footer nav a')).toHaveCount(4);
     await page.getByRole('button', { name: 'Switch to English' }).click();
-    await expect(page.locator('.draft-notice')).toContainText('Draft for review');
+    await expect(page).toHaveURL(new RegExp(`/en${path}$`));
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   }
   await page.getByRole('link', { name: 'Back to home' }).click();
   await expect(page.locator('h1')).toContainText('A world of');
+});
+
+test('WhatsApp and Instagram links use the published business contacts', async ({ page }) => {
+  await page.goto('/es');
+  const whatsapp = page.getByRole('link', { name: 'Contactar a Open World Aviation por WhatsApp' });
+  await expect(whatsapp).toBeVisible();
+  await expect(whatsapp).toHaveAttribute('href', /wa\.me\/13054305398\?text=Hola/);
+  await expect(page.getByRole('link', { name: 'Open World Aviation on Instagram' })).toHaveAttribute('href', /instagram\.com\/openworldaviation/);
 });
 
 test('mobile menu and dialogs are usable at 390px and 320px without overflow', async ({ page }) => {
@@ -96,7 +107,7 @@ const nextDate = days => new Date(Date.now()+days*86400000).toISOString().slice(
 test('flight itinerary validation and round-trip submission include dates and passengers',async({page})=>{
   let payload;
   await page.route('**/api/inquiries',async route=>{payload=route.request().postDataJSON();await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,receipt:'accepted'})});});
-  await page.goto('/?lang=es');
+  await page.goto('/es');
   const planner=page.locator('#flights');
   await planner.getByLabel('Ida y vuelta',{exact:true}).check();
   await planner.getByLabel('Origen',{exact:true}).fill('Buenos Aires');

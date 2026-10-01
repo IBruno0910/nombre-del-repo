@@ -37,7 +37,7 @@ export function SendInquiry({ data, lang, close, finished = close }) {
     <strong>{flight ? t.next : services[lang][data.service].title}</strong>
     {flight && <div className="flight-summary"><p>{t.types[types.indexOf(flight.type)]} · {flight.passengers} {t.passengers.toLowerCase()}</p>{flight.legs.map((leg,i) => <p key={i}>{leg.from} → {leg.to}<br/><small>{displayDate(leg.date,lang)}</small></p>)}{flight.returnDate && <p>{t.returning}: {displayDate(flight.returnDate,lang)}</p>}</div>}
     <p>{data.name}<br/>{data.email}{data.phone && <><br/>{data.phone}</>}{data.company && <><br/>{data.company}</>}</p>{data.message && <p>{data.message}</p>}</div>
-    <p className="form-notice">{t.privacy} <a href={`/privacy?lang=${lang}`} target="_blank" rel="noreferrer">{t.policy}</a>.</p>
+    <p className="form-notice">{t.privacy} <a href={`/${lang}/privacy`} target="_blank" rel="noreferrer">{t.policy}</a>.</p>
     {error && <p className="submission-error" role="alert">{error}</p>}<div className="review-actions"><button className="button dark" disabled={state === 'sending'} onClick={send}>{state === 'sending' ? t.sending : t.send}{state === 'sending' ? <LoaderCircle className="loading-icon" size={18}/> : <ArrowUpRight size={18}/>}</button><button className="text-link" disabled={state === 'sending'} onClick={close}>{t.edit}</button></div></>}
   </Modal>;
 }
