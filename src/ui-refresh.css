@@ -127,12 +127,12 @@
 @media(max-width:800px){.footer-bottom{align-items:center}.footer-social span{display:none}}
 @media(max-width:560px){.whatsapp-fab{left:16px;bottom:16px;width:54px;height:54px}}
 
-/* Original formation photograph, veiled behind the existing globe. */
+/* Original executive-flight photograph, veiled behind the existing globe. */
 .hero:before{
   background-image:
     linear-gradient(0deg,#f7fbfe 0%,#f7fbfe00 24%,#f7fbfe00 80%,#f7fbfe80 100%),
     linear-gradient(90deg,#f7fbfefa 0%,#f7fbfef0 31%,#f7fbfee6 42%,#eaf5fc80 61%,#edf7fc70 100%),
-    url('/images/formation-flight.jpg');
+    url('/images/executive-flight-hero.jpg');
   background-size:cover;
   background-position:center,center,center 57%;
   background-repeat:no-repeat;
@@ -143,12 +143,12 @@
   .hero:before{background-image:
     linear-gradient(0deg,#f7fbfe 0%,#f7fbfe00 25%,#f7fbfe40 80%,#f7fbfec9 100%),
     linear-gradient(90deg,#f7fbfafa 0%,#f7fbfeeb 40%,#f7fbfe99 65%,#eaf5fc80 100%),
-    url('/images/formation-flight-small.jpg');background-position:center,center,53% center}
+    url('/images/executive-flight-hero-small.jpg');background-position:center,center,56% center}
 }
 @media(max-width:560px){
   .hero:before{background-image:
     linear-gradient(180deg,#f7fbfe 0%,#f7fbfef7 35%,#edf7fc8c 54%,#edf7fc80 79%,#f7fbfe 100%),
-    url('/images/formation-flight-small.jpg');background-size:cover,auto 70%;background-position:center,53% 80%;background-color:#f7fbfe}
+    url('/images/executive-flight-hero-small.jpg');background-size:cover,auto 72%;background-position:center,58% 78%;background-color:#f7fbfe}
 }
 
 /* Transparent globe: preserve the mark while letting the photograph show through. */
@@ -172,3 +172,33 @@
 .brand img,.world-monogram,.contact-signature img{
   filter:hue-rotate(170deg) saturate(1.65);
 }
+
+/* Short, once-per-session brand reveal. */
+body.intro-active{overflow:hidden}
+.intro-sequence{position:fixed;inset:0;z-index:200;background:radial-gradient(circle at 50% 44%,#edf8ff 0,#dceef9 32%,#f8fbfd 70%);display:grid;place-items:center;overflow:hidden;animation:intro-curtain 3.2s cubic-bezier(.72,0,.2,1) both}
+.intro-sequence:before,.intro-sequence:after{content:'';position:absolute;border:1px solid #76aaca24;border-radius:50%;width:min(88vw,880px);aspect-ratio:1;animation:intro-ripple 2.2s .45s ease-out both}
+.intro-sequence:after{width:min(66vw,660px);animation-delay:.72s}
+.intro-stage{display:grid;justify-items:center;position:relative;z-index:1;transform:translateY(-1vh)}
+.intro-globe{width:min(54vw,440px);aspect-ratio:1;position:relative;display:grid;place-items:center}
+.intro-globe svg{width:100%;height:100%;filter:drop-shadow(0 25px 50px #1f5f8422)}
+.intro-sphere,.intro-grid,.intro-route{stroke:#397fa9;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1200;stroke-dashoffset:1200;animation:intro-draw 1.5s cubic-bezier(.35,.1,.15,1) forwards}
+.intro-sphere{stroke-width:1;fill:url('#intro-fill');opacity:.45}
+.intro-grid{stroke-width:.75;opacity:.38;animation-delay:.18s}
+.intro-route{stroke-width:1.6;opacity:.82;animation-delay:.34s}
+.intro-point{fill:#2676a9;opacity:0;transform-box:fill-box;transform-origin:center;animation:intro-point .42s 1.18s ease-out forwards}
+.intro-point-b{animation-delay:1.36s}
+.intro-orbit{position:absolute;width:106%;height:38%;border:1px solid #3c87b175;border-radius:50%;transform:rotate(-23deg) scale(.55);opacity:0;animation:intro-orbit 1s .65s cubic-bezier(.2,.8,.2,1) forwards}
+.intro-orbit:after{content:'';position:absolute;right:8%;top:46%;width:7px;height:7px;border-radius:50%;background:#256f9e;box-shadow:0 0 0 8px #3b8ab126}
+.intro-monogram{position:absolute;width:40%;opacity:0;filter:hue-rotate(170deg) saturate(1.65) blur(8px);clip-path:inset(0 100% 0 0);animation:intro-mark 1.05s .72s cubic-bezier(.2,.75,.2,1) forwards}
+.intro-wordmark{width:min(43vw,310px);margin-top:-28px;opacity:0;transform:translateY(12px);filter:hue-rotate(170deg) saturate(1.65);animation:intro-wordmark .7s 1.35s ease-out forwards}
+.intro-tagline{font-size:8px;letter-spacing:3.2px;color:#416a84;margin-top:18px;opacity:0;animation:intro-wordmark .6s 1.62s ease-out forwards}
+.intro-skip{position:absolute;right:28px;bottom:25px;z-index:2;color:#315b75;font-size:10px;letter-spacing:.8px;padding:11px 4px;border-bottom:1px solid #7195aa;background:transparent;opacity:0;animation:intro-wordmark .5s .55s ease-out forwards}
+@keyframes intro-draw{to{stroke-dashoffset:0}}
+@keyframes intro-point{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+@keyframes intro-orbit{to{opacity:1;transform:rotate(-23deg) scale(1)}}
+@keyframes intro-mark{to{opacity:1;filter:hue-rotate(170deg) saturate(1.65) blur(0);clip-path:inset(0 0 0 0)}}
+@keyframes intro-wordmark{to{opacity:1;transform:translateY(0)}}
+@keyframes intro-ripple{from{opacity:0;transform:scale(.72)}to{opacity:1;transform:scale(1)}}
+@keyframes intro-curtain{0%,79%{opacity:1}99%{opacity:0;visibility:visible}100%{opacity:0;visibility:hidden}}
+@media(max-width:560px){.intro-globe{width:min(88vw,390px)}.intro-wordmark{width:230px;margin-top:-20px}.intro-tagline{font-size:7px;letter-spacing:2px}.intro-skip{right:18px;bottom:18px}}
+@media(prefers-reduced-motion:reduce){.intro-sequence{display:none}.intro-sphere,.intro-grid,.intro-route,.intro-point,.intro-orbit,.intro-monogram,.intro-wordmark,.intro-tagline,.intro-skip{animation:none}}

@@ -50,6 +50,46 @@ function WorldGraphic() {
     <span className="art-cross">+</span>
   </div>;
 }
+function shouldShowIntro() {
+  const path = window.location.pathname.replace(/\/$/, '');
+  if (!['', '/en', '/es'].includes(path) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  try { return sessionStorage.getItem('owa-intro-seen') !== 'true'; }
+  catch { return true; }
+}
+function IntroSequence({ lang, onFinish }) {
+  useEffect(() => {
+    try { sessionStorage.setItem('owa-intro-seen', 'true'); } catch {}
+    document.body.classList.add('intro-active');
+    const timer = window.setTimeout(() => onFinish(false), 3200);
+    const closeOnEscape = event => { if (event.key === 'Escape') onFinish(false); };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('keydown', closeOnEscape);
+      document.body.classList.remove('intro-active');
+    };
+  }, [onFinish]);
+  return <div className="intro-sequence" role="dialog" aria-modal="true" aria-label={lang === 'es' ? 'Introducción de Open World Aviation' : 'Open World Aviation introduction'}>
+    <div className="intro-stage" aria-hidden="true">
+      <div className="intro-globe">
+        <svg viewBox="0 0 500 500" fill="none">
+          <defs><radialGradient id="intro-fill" cx="38%" cy="30%" r="72%"><stop stopColor="#fff" stopOpacity=".7"/><stop offset="1" stopColor="#8fc3e2" stopOpacity=".2"/></radialGradient></defs>
+          <circle className="intro-sphere" cx="250" cy="250" r="178"/>
+          <ellipse className="intro-grid intro-grid-a" cx="250" cy="250" rx="112" ry="178"/>
+          <ellipse className="intro-grid intro-grid-b" cx="250" cy="250" rx="178" ry="68"/>
+          <path className="intro-route" d="M82 297C155 125 343 111 432 245"/>
+          <circle className="intro-point intro-point-a" cx="82" cy="297" r="4"/>
+          <circle className="intro-point intro-point-b" cx="432" cy="245" r="5"/>
+        </svg>
+        <span className="intro-orbit"/>
+        <img className="intro-monogram" src="/brand/monogram.png" alt=""/>
+      </div>
+      <img className="intro-wordmark" src="/brand/logo-complete.svg" alt=""/>
+      <span className="intro-tagline">ONE WORLD · MANY POSSIBILITIES</span>
+    </div>
+    <button className="intro-skip" type="button" onClick={() => onFinish(false)}>{lang === 'es' ? 'Saltar introducción' : 'Skip intro'}</button>
+  </div>;
+}
 function AviationImage({ kind, lang }) {
   const hero = kind === 'hero';
   const name = hero ? 'aircraft-hangar' : 'engine-detail';
@@ -69,6 +109,7 @@ function AviationImage({ kind, lang }) {
 }
 function App() {
   const [lang, setLang] = useState(initialLanguage);
+  const [introVisible, setIntroVisible] = useState(shouldShowIntro);
   const [menu, setMenu] = useState(false);
   const [detail, setDetail] = useState(null);
   const [review, setReview] = useState(false);
@@ -103,6 +144,7 @@ function App() {
   }
   const anchor = id => isLegal ? `${home}#${id}` : `#${id}`;
   return <>
+    {introVisible && <IntroSequence lang={lang} onFinish={setIntroVisible}/>}
     <a className="skip-link" href="#main">{lang === 'en' ? 'Skip to content' : 'Ir al contenido'}</a>
     <header className="header"><div className="header-inner">
       <Brand home={home} />
