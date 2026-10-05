@@ -1,6 +1,6 @@
 export const copy = {
   es: {
-    nav: ['Servicios', 'Nuestra perspectiva', 'Cómo trabajamos'], contact: 'Conversemos',
+    nav: ['Servicios', 'Quiénes somos', 'Cómo trabajamos'], contact: 'Contáctanos',
     eyebrow: 'UNA PERSPECTIVA GLOBAL. UN ENFOQUE PERSONAL.', hero: ['Un mundo de', 'posibilidades', 'en aviación.'],
     intro: 'Conectamos experiencia, personas y recursos para encontrar la solución adecuada para cada aeronave, cada operación y cada cliente.',
     discover: 'Explorar nuestros servicios', scroll: 'Descubra Open World Aviation',

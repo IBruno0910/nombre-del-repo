@@ -35,6 +35,10 @@ test('English home loads assets, all five services and Spanish translation', asy
   await expect(page).toHaveURL(/\/es$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(page.locator('h1')).toContainText('Un mundo de');
+  await expect(page.locator('#main-navigation')).toContainText('Servicios');
+  await expect(page.locator('#main-navigation')).toContainText('Quiénes somos');
+  await expect(page.locator('#main-navigation')).toContainText('Cómo trabajamos');
+  await expect(page.locator('.header-contact')).toContainText('Contáctanos');
   await expect(page.locator('.service-row').first()).toContainText('Gestión de aeronaves');
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
