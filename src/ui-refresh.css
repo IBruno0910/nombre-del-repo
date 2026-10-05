@@ -152,8 +152,26 @@
 }
 
 /* Transparent globe: preserve the mark while letting the photograph show through. */
-.world-art svg{filter:drop-shadow(0 12px 28px #376b880c)}
-.world-monogram{opacity:1}
+.hero-copy{position:relative;z-index:3}
+.world-art{z-index:2}
+.world-art:before{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:40%;
+  aspect-ratio:1;
+  border:1px solid #ffffff80;
+  border-radius:50%;
+  background:radial-gradient(circle,#f7fbfed9 0,#f7fbfea8 48%,#f7fbfe24 70%,transparent 72%);
+  box-shadow:0 18px 55px #143c5524,inset 0 1px 0 #fff;
+  transform:translate(-50%,-50%);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+  pointer-events:none;
+}
+.world-art svg{position:relative;z-index:1;filter:drop-shadow(0 12px 28px #376b880c)}
+.world-monogram{width:30%;opacity:1;z-index:2;filter:hue-rotate(170deg) saturate(1.65) drop-shadow(0 2px 2px #fff) drop-shadow(0 0 15px #ffffffc9)!important}
 .art-coordinate.top,.art-coordinate.bottom{
   background:linear-gradient(120deg,#ffffff55,#f0f8ff25);
   border-color:#ffffff8c;
@@ -167,6 +185,15 @@
 /* Keep fine text readable over the stronger photograph. */
 .hero-copy>p{color:#425f73}
 .art-coordinate.top,.art-coordinate.bottom{color:#244f6c;background:linear-gradient(120deg,#ffffff99,#f0f8ff73)}
+
+@media(max-width:800px){
+  .world-art:before{width:38%;background:radial-gradient(circle,#f7fbfee6 0,#f7fbfeb8 50%,#f7fbfe1f 71%,transparent 73%)}
+  .world-monogram{width:27%}
+}
+@media(max-width:560px){
+  .world-art:before{width:43%}
+  .world-monogram{width:31%;top:53%}
+}
 
 /* Recolor the champagne accent while preserving original logo pixels and alpha. */
 .brand img,.world-monogram,.contact-signature img{
