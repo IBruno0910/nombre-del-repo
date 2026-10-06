@@ -241,19 +241,7 @@
 .hero-cover .hero-copy>p{max-width:480px;color:#fff;font-size:16px;line-height:1.55;text-shadow:0 1px 15px #07172599}
 .hero-cover .hero-cta{margin-top:17px;min-width:228px;color:#fff;background:#07131f1f;border:1px solid #c6ad78;border-radius:0;padding:13px 15px;font-size:12px;backdrop-filter:blur(3px)}
 .hero-cover .hero-cta:hover{background:#102c3cc7;border-color:#dbc799}
-.hero-signature{position:absolute;right:0;bottom:36px;display:flex;align-items:center;gap:11px;color:#fff9;opacity:.72}
-.hero-signature .aviation-mark{width:74px}
-.hero-signature span{font-size:7px;letter-spacing:1.8px}
-
-/* Advisory mark: wing, direction and a stable horizon. */
-.aviation-mark{display:block;color:currentColor;overflow:visible}
-.aviation-mark .mark-line{stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.aviation-mark .mark-line-inner{stroke-width:1.35;opacity:.62}
-.aviation-mark .mark-line-horizon{stroke-width:1;opacity:.48}
-.aviation-mark .mark-line-axis{stroke:#af9564;stroke-width:1.5}
-.aviation-mark .mark-fill{fill:#af9564}
-.aviation-mark .mark-detail{stroke:currentColor;stroke-width:1;stroke-linecap:round;opacity:.55}
-.contact-signature .aviation-mark{width:78px;color:#2b7098;flex:0 0 auto}
+.contact-signature img{width:78px;height:auto;flex:0 0 auto;filter:none;mix-blend-mode:multiply}
 
 @media(min-width:561px) and (max-width:1300px){
   .hero-cover{background-size:cover,cover,auto 118%;background-position:center,center,54% 100%}
@@ -265,7 +253,6 @@
   .hero-cover,.hero-cover .hero-inner{min-height:680px}
   .hero-cover{background-size:cover,cover,auto 118%;background-position:center,center,54% 100%}
   .hero-cover .hero-copy{width:min(520px,80%)}
-  .hero-signature{right:0}
 }
 @media(max-width:560px){
   .header-overlay{height:76px}
@@ -276,5 +263,4 @@
   .hero-cover h1{font-size:44px;letter-spacing:-1.9px;line-height:1}
   .hero-cover .hero-copy>p{font-size:14px;max-width:330px}
   .hero-cover .hero-cta{min-width:220px;padding:14px 15px}
-  .hero-signature{right:0;bottom:24px;display:none}
 }

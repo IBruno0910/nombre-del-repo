@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
-import AviationMark from './AviationMark';
 import './intro.css';
 
 const INTRO_DURATION = 3400;
@@ -42,10 +41,15 @@ export default function IntroSequence({ lang, onFinish }) {
     <div className="brand-intro__panel brand-intro__panel--right" aria-hidden="true"/>
     <div className="brand-intro__stage" aria-hidden="true">
       <div className="brand-intro__emblem">
-        <svg className="brand-intro__guides" viewBox="0 0 420 210" fill="none">
-          <path pathLength="1" d="M32 128H388M210 12V198M38 26H62M38 26V50M382 26H358M382 26V50M38 184H62M38 184V160M382 184H358M382 184V160"/>
-        </svg>
-        <AviationMark className="brand-intro__mark"/>
+        <div className="brand-intro__monogram">
+          <span className="brand-intro__letter brand-intro__letter--o">
+            <img src="/brand/monogram.png" alt="" width="326" height="174" decoding="sync" fetchPriority="high"/>
+          </span>
+          <span className="brand-intro__letter brand-intro__letter--w">
+            <img src="/brand/monogram.png" alt="" width="326" height="174" decoding="sync"/>
+          </span>
+          <span className="brand-intro__gleam"/>
+        </div>
       </div>
       <div className="brand-intro__name">
         <img src="/brand/logo-complete.svg" alt="" width="1316" height="254" decoding="sync"/>
