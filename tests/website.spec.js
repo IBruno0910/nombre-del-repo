@@ -4,12 +4,14 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => sessionStorage.setItem('owa-intro-seen', 'true'));
 });
 
-test('brand intro draws the globe, reveals the logo and only runs once per session', async ({ browser }) => {
+test('brand intro draws an aviation route, reveals the logo and only runs once per session', async ({ browser }) => {
   const page = await browser.newPage();
   await page.goto('/');
   const intro = page.getByRole('dialog', { name: 'Open World Aviation introduction' });
   await expect(intro).toBeVisible();
   await expect(intro.locator('.intro-monogram')).toBeVisible();
+  await expect(intro.locator('.intro-flight')).toBeVisible();
+  await expect(intro.locator('.intro-orbit, .intro-point')).toHaveCount(0);
   await page.waitForTimeout(1300);
   await page.screenshot({ animations: 'allow', path: 'artifacts/owa-intro.png' });
   await page.getByRole('button', { name: 'Skip intro' }).click();

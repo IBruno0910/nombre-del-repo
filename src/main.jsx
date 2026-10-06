@@ -33,21 +33,28 @@ function Brand({ home }) {
 }
 function WorldGraphic() {
   return <div className="world-art" aria-hidden="true">
-    <div className="art-coordinate top">OPEN WORLD / GLOBAL CONNECTIONS</div>
+    <div className="art-coordinate top">OPEN WORLD / GLOBAL AVIATION</div>
     <svg viewBox="0 0 600 600" fill="none">
-      <defs><radialGradient id="sphere" cx="38%" cy="30%" r="72%"><stop stopColor="#ffffff" stopOpacity=".28"/><stop offset=".65" stopColor="#e1f2fc" stopOpacity=".10"/><stop offset="1" stopColor="#97c3df" stopOpacity=".24"/></radialGradient><linearGradient id="route"><stop stopColor="#3882b7" stopOpacity="0"/><stop offset=".5" stopColor="#3882b7"/><stop offset="1" stopColor="#3882b7" stopOpacity=".3"/></linearGradient></defs>
+      <defs>
+        <radialGradient id="sphere" cx="38%" cy="30%" r="72%"><stop stopColor="#ffffff" stopOpacity=".28"/><stop offset=".65" stopColor="#e1f2fc" stopOpacity=".10"/><stop offset="1" stopColor="#97c3df" stopOpacity=".24"/></radialGradient>
+        <linearGradient id="route"><stop stopColor="#257faf" stopOpacity=".18"/><stop offset=".55" stopColor="#176f9f"/><stop offset="1" stopColor="#257faf" stopOpacity=".38"/></linearGradient>
+        <clipPath id="world-clip"><circle cx="300" cy="300" r="214"/></clipPath>
+      </defs>
       <circle cx="300" cy="300" r="214" fill="url(#sphere)" />
-      <g stroke="#7ca4c0" strokeWidth=".65" opacity=".36">
-        <circle cx="300" cy="300" r="214"/><ellipse cx="300" cy="300" rx="156" ry="214"/><ellipse cx="300" cy="300" rx="82" ry="214"/>
-        <ellipse cx="300" cy="300" rx="214" ry="70"/><ellipse cx="300" cy="300" rx="214" ry="150"/><path d="M86 300h428M300 86v428"/>
+      <g className="world-grid" stroke="#719ab4" strokeWidth=".75" opacity=".38">
+        <circle cx="300" cy="300" r="214"/><ellipse cx="300" cy="300" rx="142" ry="214"/><ellipse cx="300" cy="300" rx="66" ry="214"/>
+        <ellipse cx="300" cy="300" rx="214" ry="78"/><ellipse cx="300" cy="300" rx="214" ry="154"/>
       </g>
-      <g transform="rotate(-32 300 300)" opacity=".65"><ellipse cx="300" cy="300" rx="278" ry="104" stroke="url(#route)" strokeWidth="1.5"/><circle cx="551" cy="345" r="5" fill="#1970ac"/><circle cx="551" cy="345" r="12" stroke="#1970ac" opacity=".35"/></g>
-      <path d="M149 380Q211 139 438 209" stroke="#387fae" strokeDasharray="3 5" opacity=".52"/>
-      <circle cx="149" cy="380" r="3.5" fill="#387fae" opacity=".65"/><circle cx="438" cy="209" r="3.5" fill="#387fae" opacity=".65"/>
+      <g clipPath="url(#world-clip)">
+        <path className="world-flight-route" d="M102 374C174 216 329 159 484 251" stroke="url(#route)" strokeWidth="2.4"/>
+        <path className="world-aircraft" d="M0-16 4-5 18 1 18 5 4 3 2 16-2 16-4 3-18 5-18 1-4-5Z" transform="translate(397 197) rotate(57)" fill="#176f9f"/>
+      </g>
+      <g className="world-heading" stroke="#176f9f" opacity=".58">
+        <path d="M300 73v18M300 509v18M73 300h18M509 300h18"/>
+      </g>
     </svg>
     <img className="world-monogram" src="/brand/monogram.png" alt="" />
-    <span className="art-coordinate bottom">ONE WORLD. MANY POSSIBILITIES.</span>
-    <span className="art-cross">+</span>
+    <span className="art-coordinate bottom">AIRCRAFT · OPERATIONS · SUPPORT</span>
   </div>;
 }
 function shouldShowIntro() {
@@ -78,10 +85,12 @@ function IntroSequence({ lang, onFinish }) {
           <ellipse className="intro-grid intro-grid-a" cx="250" cy="250" rx="112" ry="178"/>
           <ellipse className="intro-grid intro-grid-b" cx="250" cy="250" rx="178" ry="68"/>
           <path className="intro-route" d="M82 297C155 125 343 111 432 245"/>
-          <circle className="intro-point intro-point-a" cx="82" cy="297" r="4"/>
-          <circle className="intro-point intro-point-b" cx="432" cy="245" r="5"/>
+          <g className="intro-flight" opacity="0">
+            <path d="M0-13 3-4 15 1 15 4 3 2 2 13-2 13-3 2-15 4-15 1-3-4Z" fill="#176f9f"/>
+            <animate attributeName="opacity" from="0" to="1" dur=".2s" begin=".55s" fill="freeze"/>
+            <animateMotion path="M82 297C155 125 343 111 432 245" dur="1.25s" begin=".55s" fill="freeze" rotate="auto"/>
+          </g>
         </svg>
-        <span className="intro-orbit"/>
         <img className="intro-monogram" src="/brand/monogram.png" alt=""/>
       </div>
       <img className="intro-wordmark" src="/brand/logo-complete.svg" alt=""/>

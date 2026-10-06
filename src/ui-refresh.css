@@ -171,6 +171,9 @@
   pointer-events:none;
 }
 .world-art svg{position:relative;z-index:1;filter:drop-shadow(0 12px 28px #376b880c)}
+.world-flight-route{stroke-linecap:round}
+.world-aircraft{filter:drop-shadow(0 2px 3px #ffffffcc)}
+.world-heading{stroke-width:1.4;stroke-linecap:round}
 .world-monogram{width:30%;opacity:1;z-index:2;filter:hue-rotate(170deg) saturate(1.65) drop-shadow(0 2px 2px #fff) drop-shadow(0 0 15px #ffffffc9)!important}
 .art-coordinate.top,.art-coordinate.bottom{
   background:linear-gradient(120deg,#ffffff55,#f0f8ff25);
@@ -180,8 +183,6 @@
   -webkit-backdrop-filter:blur(6px);
   color:#3d6d8c;
 }
-.art-cross{opacity:.6}
-
 /* Keep fine text readable over the stronger photograph. */
 .hero-copy>p{color:#425f73}
 .art-coordinate.top,.art-coordinate.bottom{color:#244f6c;background:linear-gradient(120deg,#ffffff99,#f0f8ff73)}
@@ -212,20 +213,15 @@ body.intro-active{overflow:hidden}
 .intro-sphere{stroke-width:1;fill:url('#intro-fill');opacity:.45}
 .intro-grid{stroke-width:.75;opacity:.38;animation-delay:.18s}
 .intro-route{stroke-width:1.6;opacity:.82;animation-delay:.34s}
-.intro-point{fill:#2676a9;opacity:0;transform-box:fill-box;transform-origin:center;animation:intro-point .42s 1.18s ease-out forwards}
-.intro-point-b{animation-delay:1.36s}
-.intro-orbit{position:absolute;width:106%;height:38%;border:1px solid #3c87b175;border-radius:50%;transform:rotate(-23deg) scale(.55);opacity:0;animation:intro-orbit 1s .65s cubic-bezier(.2,.8,.2,1) forwards}
-.intro-orbit:after{content:'';position:absolute;right:8%;top:46%;width:7px;height:7px;border-radius:50%;background:#256f9e;box-shadow:0 0 0 8px #3b8ab126}
+.intro-flight{filter:drop-shadow(0 3px 5px #ffffffd9)}
 .intro-monogram{position:absolute;width:40%;opacity:0;filter:hue-rotate(170deg) saturate(1.65) blur(8px);clip-path:inset(0 100% 0 0);animation:intro-mark 1.05s .72s cubic-bezier(.2,.75,.2,1) forwards}
 .intro-wordmark{width:min(43vw,310px);margin-top:-28px;opacity:0;transform:translateY(12px);filter:hue-rotate(170deg) saturate(1.65);animation:intro-wordmark .7s 1.35s ease-out forwards}
 .intro-tagline{font-size:8px;letter-spacing:3.2px;color:#416a84;margin-top:18px;opacity:0;animation:intro-wordmark .6s 1.62s ease-out forwards}
 .intro-skip{position:absolute;right:28px;bottom:25px;z-index:2;color:#315b75;font-size:10px;letter-spacing:.8px;padding:11px 4px;border-bottom:1px solid #7195aa;background:transparent;opacity:0;animation:intro-wordmark .5s .55s ease-out forwards}
 @keyframes intro-draw{to{stroke-dashoffset:0}}
-@keyframes intro-point{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
-@keyframes intro-orbit{to{opacity:1;transform:rotate(-23deg) scale(1)}}
 @keyframes intro-mark{to{opacity:1;filter:hue-rotate(170deg) saturate(1.65) blur(0);clip-path:inset(0 0 0 0)}}
 @keyframes intro-wordmark{to{opacity:1;transform:translateY(0)}}
 @keyframes intro-ripple{from{opacity:0;transform:scale(.72)}to{opacity:1;transform:scale(1)}}
 @keyframes intro-curtain{0%,79%{opacity:1}99%{opacity:0;visibility:visible}100%{opacity:0;visibility:hidden}}
 @media(max-width:560px){.intro-globe{width:min(88vw,390px)}.intro-wordmark{width:230px;margin-top:-20px}.intro-tagline{font-size:7px;letter-spacing:2px}.intro-skip{right:18px;bottom:18px}}
-@media(prefers-reduced-motion:reduce){.intro-sequence{display:none}.intro-sphere,.intro-grid,.intro-route,.intro-point,.intro-orbit,.intro-monogram,.intro-wordmark,.intro-tagline,.intro-skip{animation:none}}
+@media(prefers-reduced-motion:reduce){.intro-sequence{display:none}.intro-sphere,.intro-grid,.intro-route,.intro-flight,.intro-monogram,.intro-wordmark,.intro-tagline,.intro-skip{animation:none}}
