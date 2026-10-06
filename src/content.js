@@ -1,8 +1,8 @@
 export const copy = {
   es: {
     nav: ['Servicios', 'Quiénes somos', 'Cómo trabajamos'], contact: 'Contáctanos',
-    eyebrow: 'UNA PERSPECTIVA GLOBAL. UN ENFOQUE PERSONAL.', hero: ['Un mundo de', 'posibilidades', 'en aviación.'],
-    intro: 'Conectamos experiencia, personas y recursos para encontrar la solución adecuada para cada aeronave, cada operación y cada cliente.',
+    eyebrow: 'UNA PERSPECTIVA GLOBAL. UN ENFOQUE PERSONAL.', hero: ['Un mundo de', 'posibilidades', 'en la aviación.'],
+    intro: 'Combinamos experiencia, conocimiento y una red global para ofrecer la solución adecuada para cada aeronave, cada operación y cada cliente.',
     discover: 'Explorar nuestros servicios', scroll: 'Descubra Open World Aviation',
     segments: ['Business aviation', 'Aviación comercial y regional', 'Propietarios y operadores'],
     servicesLabel: '01 — NUESTRAS CAPACIDADES', servicesTitle: 'Su visión. Nuestra experiencia.',
@@ -27,7 +27,7 @@ export const copy = {
   en: {
     nav: ['Our services', 'Our perspective', 'Our approach'], contact: 'Let’s talk',
     eyebrow: 'GLOBAL PERSPECTIVE. PERSONAL APPROACH.', hero: ['A world of', 'possibilities', 'in aviation.'],
-    intro: 'Connecting expertise, people and resources to find the right solution for every aircraft, every operation and every client.',
+    intro: 'We combine experience, expertise, and a global network to deliver the right solution for every aircraft, every operation, and every client.',
     discover: 'Explore our services', scroll: 'Discover Open World Aviation',
     segments: ['Business aviation', 'Commercial & regional aviation', 'Owners & operators'],
     servicesLabel: '01 — OUR CAPABILITIES', servicesTitle: 'Your vision. Our expertise.', servicesIntro: 'Five areas of expertise. One point of contact to guide your aviation decisions.', more: 'Learn more',

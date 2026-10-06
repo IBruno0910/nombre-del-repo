@@ -26,6 +26,7 @@ test('English home loads assets, all five services and Spanish translation', asy
   await page.goto('/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('h1')).toContainText('A world of');
+  await expect(page.locator('.hero-copy > p')).toHaveText('We combine experience, expertise, and a global network to deliver the right solution for every aircraft, every operation, and every client.');
   await expect(page.locator('.service-row')).toHaveCount(5);
   await page.evaluate(async () => { await document.fonts.ready; for (const img of document.images) { img.loading = 'eager'; await img.decode(); } });
   await expect(page.locator('body')).not.toContainText(/inajet/i);
@@ -35,6 +36,8 @@ test('English home loads assets, all five services and Spanish translation', asy
   await expect(page).toHaveURL(/\/es$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(page.locator('h1')).toContainText('Un mundo de');
+  await expect(page.locator('h1')).toContainText('en la aviación.');
+  await expect(page.locator('.hero-copy > p')).toHaveText('Combinamos experiencia, conocimiento y una red global para ofrecer la solución adecuada para cada aeronave, cada operación y cada cliente.');
   await expect(page.locator('#main-navigation')).toContainText('Servicios');
   await expect(page.locator('#main-navigation')).toContainText('Quiénes somos');
   await expect(page.locator('#main-navigation')).toContainText('Cómo trabajamos');
