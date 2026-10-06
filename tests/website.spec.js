@@ -4,14 +4,13 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => sessionStorage.setItem('owa-intro-seen', 'true'));
 });
 
-test('brand intro draws an aviation route, reveals the logo and only runs once per session', async ({ browser }) => {
+test('brand intro draws the advisory mark, reveals the logo and only runs once per session', async ({ browser }) => {
   const page = await browser.newPage();
   await page.goto('/');
   const intro = page.getByRole('dialog', { name: 'Open World Aviation introduction' });
   await expect(intro).toBeVisible();
-  await expect(intro.locator('.intro-monogram')).toBeVisible();
-  await expect(intro.locator('.intro-flight')).toBeVisible();
-  await expect(intro.locator('.intro-orbit, .intro-point')).toHaveCount(0);
+  await expect(intro.locator('.intro-aviation-mark')).toBeVisible();
+  await expect(intro.locator('.intro-globe, .intro-orbit, .intro-flight')).toHaveCount(0);
   await page.waitForTimeout(1300);
   await page.screenshot({ animations: 'allow', path: 'artifacts/owa-intro.png' });
   await page.getByRole('button', { name: 'Skip intro' }).click();
@@ -27,8 +26,8 @@ test('English home loads assets, all five services and Spanish translation', asy
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  await expect(page.locator('h1')).toContainText('A world of');
-  await expect(page.locator('.hero-copy > p')).toHaveText('We combine experience, expertise, and a global network to deliver the right solution for every aircraft, every operation, and every client.');
+  await expect(page.locator('h1')).toContainText('Aviation solutions.');
+  await expect(page.locator('.hero-copy > p')).toHaveText('Experience and sound judgment for every operation.');
   await expect(page.locator('.service-row')).toHaveCount(5);
   await page.evaluate(async () => { await document.fonts.ready; for (const img of document.images) { img.loading = 'eager'; await img.decode(); } });
   await expect(page.locator('body')).not.toContainText(/inajet/i);
@@ -37,9 +36,9 @@ test('English home loads assets, all five services and Spanish translation', asy
   await page.getByRole('button', { name: 'Cambiar a español' }).click();
   await expect(page).toHaveURL(/\/es$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
-  await expect(page.locator('h1')).toContainText('Un mundo de');
-  await expect(page.locator('h1')).toContainText('en la aviación.');
-  await expect(page.locator('.hero-copy > p')).toHaveText('Combinamos experiencia, conocimiento y una red global para ofrecer la solución adecuada para cada aeronave, cada operación y cada cliente.');
+  await expect(page.locator('h1')).toContainText('Soluciones aeronáuticas.');
+  await expect(page.locator('h1')).toContainText('Visión global.');
+  await expect(page.locator('.hero-copy > p')).toHaveText('Experiencia y criterio para cada operación.');
   await expect(page.locator('#main-navigation')).toContainText('Servicios');
   await expect(page.locator('#main-navigation')).toContainText('Quiénes somos');
   await expect(page.locator('#main-navigation')).toContainText('Cómo trabajamos');
@@ -100,7 +99,7 @@ test('localized legal URLs retain language and publish completed privacy and ter
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   }
   await page.getByRole('link', { name: 'Back to home' }).click();
-  await expect(page.locator('h1')).toContainText('A world of');
+  await expect(page.locator('h1')).toContainText('Aviation solutions.');
 });
 
 test('WhatsApp and Instagram links use the published business contacts', async ({ page }) => {

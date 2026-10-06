@@ -225,3 +225,114 @@ body.intro-active{overflow:hidden}
 @keyframes intro-curtain{0%,79%{opacity:1}99%{opacity:0;visibility:visible}100%{opacity:0;visibility:hidden}}
 @media(max-width:560px){.intro-globe{width:min(88vw,390px)}.intro-wordmark{width:230px;margin-top:-20px}.intro-tagline{font-size:7px;letter-spacing:2px}.intro-skip{right:18px;bottom:18px}}
 @media(prefers-reduced-motion:reduce){.intro-sequence{display:none}.intro-sphere,.intro-grid,.intro-route,.intro-flight,.intro-monogram,.intro-wordmark,.intro-tagline,.intro-skip{animation:none}}
+
+/* Integrated photographic cover, based on the approved art direction. */
+.header-overlay{
+  position:absolute;
+  inset:0 0 auto;
+  background:transparent;
+  border:0;
+  color:#10283a;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.header-overlay .navigation{background:transparent;border:0;box-shadow:none}
+.header-overlay .navigation a{font-weight:500}
+.header-overlay .navigation a:hover{background:#ffffff40;color:#0b3b59}
+.header-overlay .header-contact{color:#10283a;background:transparent;border:0;border-left:1px solid #a89367;padding:9px 0 9px 34px;border-radius:0}
+.header-overlay .header-contact:hover{background:transparent;color:#17658f}
+.header-overlay .header-contact svg{display:none}
+.header-overlay .languages button,.header-overlay .languages span{color:#1c4057}
+.header-overlay .brand img{filter:brightness(0) saturate(100%)}
+
+.hero-cover{
+  width:100%;
+  min-height:650px;
+  display:block;
+  padding:0;
+  background-image:
+    linear-gradient(90deg,#07141f26 0,#07141f05 50%,transparent 72%),
+    linear-gradient(0deg,#07131fc7 0,#07131f5c 26%,transparent 58%),
+    url('/images/executive-flight-hero.jpg');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  isolation:isolate;
+}
+.hero-cover:before{display:none}
+.hero-cover .hero-inner{min-height:650px;position:relative;padding-top:100px}
+.hero-cover .hero-copy{position:absolute;left:0;bottom:43px;color:#fff;width:min(620px,70%);z-index:2}
+.hero-cover h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(43px,4.2vw,62px);font-weight:400;line-height:.98;letter-spacing:-2.5px;margin:0 0 12px;text-wrap:balance;text-shadow:0 2px 24px #06111d55}
+.hero-cover .hero-copy>p{max-width:480px;color:#fff;font-size:16px;line-height:1.55;text-shadow:0 1px 15px #07172599}
+.hero-cover .hero-cta{margin-top:17px;min-width:228px;color:#fff;background:#07131f1f;border:1px solid #c6ad78;border-radius:0;padding:13px 15px;font-size:12px;backdrop-filter:blur(3px)}
+.hero-cover .hero-cta:hover{background:#102c3cc7;border-color:#dbc799}
+.hero-signature{position:absolute;right:0;bottom:36px;display:flex;align-items:center;gap:11px;color:#fff9;opacity:.72}
+.hero-signature .aviation-mark{width:74px}
+.hero-signature span{font-size:7px;letter-spacing:1.8px}
+
+/* Advisory mark: wing, direction and a stable horizon. */
+.aviation-mark{display:block;color:currentColor;overflow:visible}
+.aviation-mark .mark-line{stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.aviation-mark .mark-line-inner{stroke-width:1.35;opacity:.62}
+.aviation-mark .mark-line-horizon{stroke-width:1;opacity:.48}
+.aviation-mark .mark-line-axis{stroke:#af9564;stroke-width:1.5}
+.aviation-mark .mark-fill{fill:#af9564}
+.aviation-mark .mark-detail{stroke:currentColor;stroke-width:1;stroke-linecap:round;opacity:.55}
+.contact-signature .aviation-mark{width:78px;color:#2b7098;flex:0 0 auto}
+
+/* Technical reveal for the new advisory mark. */
+.intro-sequence{background:linear-gradient(145deg,#f8fbfd,#e8f3f9 58%,#fdfcf9)}
+.intro-sequence:before,.intro-sequence:after{
+  border:0;
+  border-radius:0;
+  aspect-ratio:auto;
+  animation:intro-datum 1.5s .15s ease-out both;
+}
+.intro-sequence:before{width:100%;height:1px;background:linear-gradient(90deg,transparent,#6797b366 32%,#6797b366 68%,transparent)}
+.intro-sequence:after{width:1px;height:100%;background:linear-gradient(transparent,#6797b355 28%,#6797b355 72%,transparent)}
+.intro-symbol{width:min(63vw,560px);height:250px;display:grid;place-items:center;position:relative;color:#1d587b}
+.intro-aviation-mark{width:100%}
+.intro-aviation-mark .mark-line,.intro-aviation-mark .mark-detail{stroke-dasharray:500;stroke-dashoffset:500;animation:mark-draw 1.35s cubic-bezier(.3,.05,.15,1) forwards}
+.intro-aviation-mark .mark-line-inner{animation-delay:.14s}
+.intro-aviation-mark .mark-line-horizon,.intro-aviation-mark .mark-detail{animation-delay:.3s}
+.intro-aviation-mark .mark-line-axis{animation-delay:.48s}
+.intro-aviation-mark .mark-fill{opacity:0;transform-origin:center;animation:mark-fill .5s .95s ease-out forwards}
+.intro-datum{position:absolute;background:#6999b563;opacity:0;animation:datum-in .6s .35s ease-out forwards}
+.intro-datum-a{width:72%;height:1px;left:14%;top:50%}
+.intro-datum-b{height:72%;width:1px;top:14%;left:50%}
+.intro-mark-label{position:absolute;bottom:4px;font-size:7px;letter-spacing:3px;color:#456f88;opacity:0;animation:intro-wordmark .6s 1.05s ease-out forwards}
+.intro-wordmark{margin-top:-26px}
+@keyframes mark-draw{to{stroke-dashoffset:0}}
+@keyframes mark-fill{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+@keyframes datum-in{from{opacity:0;transform:scale(.3)}to{opacity:.65;transform:scale(1)}}
+@keyframes intro-datum{from{opacity:0;transform:scale(.35)}to{opacity:1;transform:scale(1)}}
+
+@media(min-width:561px) and (max-width:900px){
+  .hero-cover{background-size:cover,cover,auto 118%;background-position:center,center,54% 100%}
+}
+@media(max-width:800px){
+  .header-overlay{height:82px}
+  .header-overlay .navigation{background:#fffffff4;border-bottom:1px solid #dce8f0;box-shadow:0 15px 30px #0a26331f}
+  .header-overlay .navigation a:hover{background:#edf5fa}
+  .hero-cover,.hero-cover .hero-inner{min-height:680px}
+  .hero-cover{background-size:cover,cover,auto 118%;background-position:center,center,54% 100%}
+  .hero-cover .hero-copy{width:min(520px,80%)}
+  .hero-signature{right:0}
+}
+@media(max-width:560px){
+  .header-overlay{height:76px}
+  .hero-cover,.hero-cover .hero-inner{min-height:700px}
+  .hero-cover{background-image:linear-gradient(0deg,#06131fd6 0,#06131f75 39%,transparent 72%),url('/images/executive-flight-hero-small.jpg');background-size:cover,auto 120%;background-position:center,51% 54%}
+  .hero-cover .hero-inner{width:calc(100% - 40px);padding-top:76px}
+  .hero-cover .hero-copy{left:0;bottom:46px;width:100%}
+  .hero-cover h1{font-size:44px;letter-spacing:-1.9px;line-height:1}
+  .hero-cover .hero-copy>p{font-size:14px;max-width:330px}
+  .hero-cover .hero-cta{min-width:220px;padding:14px 15px}
+  .hero-signature{right:0;bottom:24px;display:none}
+  .intro-symbol{width:min(88vw,420px);height:210px}
+  .intro-mark-label{font-size:6px;letter-spacing:1.8px}
+}
+@media(prefers-reduced-motion:reduce){
+  .intro-aviation-mark .mark-line,.intro-aviation-mark .mark-detail{stroke-dashoffset:0;animation:none}
+  .intro-aviation-mark .mark-fill,.intro-datum,.intro-mark-label{opacity:1;animation:none}
+}

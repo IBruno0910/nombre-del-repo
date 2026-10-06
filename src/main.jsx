@@ -31,31 +31,15 @@ function initialLanguage() {
 function Brand({ home }) {
   return <a className="brand" href={home} aria-label="Open World Aviation — Home"><img src="/brand/logo-complete.svg" alt="Open World Aviation" width="1316" height="254" /></a>;
 }
-function WorldGraphic() {
-  return <div className="world-art" aria-hidden="true">
-    <div className="art-coordinate top">OPEN WORLD / GLOBAL AVIATION</div>
-    <svg viewBox="0 0 600 600" fill="none">
-      <defs>
-        <radialGradient id="sphere" cx="38%" cy="30%" r="72%"><stop stopColor="#ffffff" stopOpacity=".28"/><stop offset=".65" stopColor="#e1f2fc" stopOpacity=".10"/><stop offset="1" stopColor="#97c3df" stopOpacity=".24"/></radialGradient>
-        <linearGradient id="route"><stop stopColor="#257faf" stopOpacity=".18"/><stop offset=".55" stopColor="#176f9f"/><stop offset="1" stopColor="#257faf" stopOpacity=".38"/></linearGradient>
-        <clipPath id="world-clip"><circle cx="300" cy="300" r="214"/></clipPath>
-      </defs>
-      <circle cx="300" cy="300" r="214" fill="url(#sphere)" />
-      <g className="world-grid" stroke="#719ab4" strokeWidth=".75" opacity=".38">
-        <circle cx="300" cy="300" r="214"/><ellipse cx="300" cy="300" rx="142" ry="214"/><ellipse cx="300" cy="300" rx="66" ry="214"/>
-        <ellipse cx="300" cy="300" rx="214" ry="78"/><ellipse cx="300" cy="300" rx="214" ry="154"/>
-      </g>
-      <g clipPath="url(#world-clip)">
-        <path className="world-flight-route" d="M102 374C174 216 329 159 484 251" stroke="url(#route)" strokeWidth="2.4"/>
-        <path className="world-aircraft" d="M0-16 4-5 18 1 18 5 4 3 2 16-2 16-4 3-18 5-18 1-4-5Z" transform="translate(397 197) rotate(57)" fill="#176f9f"/>
-      </g>
-      <g className="world-heading" stroke="#176f9f" opacity=".58">
-        <path d="M300 73v18M300 509v18M73 300h18M509 300h18"/>
-      </g>
-    </svg>
-    <img className="world-monogram" src="/brand/monogram.png" alt="" />
-    <span className="art-coordinate bottom">AIRCRAFT · OPERATIONS · SUPPORT</span>
-  </div>;
+function AviationMark({ className = '' }) {
+  return <svg className={`aviation-mark ${className}`} viewBox="0 0 320 170" fill="none" aria-hidden="true">
+    <path className="mark-line mark-line-main" d="M20 104C74 103 117 86 160 47C203 86 246 103 300 104"/>
+    <path className="mark-line mark-line-inner" d="M48 122C96 117 128 104 160 77C192 104 224 117 272 122"/>
+    <path className="mark-line mark-line-horizon" d="M77 137H243"/>
+    <path className="mark-line mark-line-axis" d="M160 25V143"/>
+    <path className="mark-fill" d="M160 37L168 75L160 88L152 75Z"/>
+    <path className="mark-detail" d="M89 107L72 125M231 107L248 125M137 137L160 151L183 137"/>
+  </svg>;
 }
 function shouldShowIntro() {
   const path = window.location.pathname.replace(/\/$/, '');
@@ -78,20 +62,11 @@ function IntroSequence({ lang, onFinish }) {
   }, [onFinish]);
   return <div className="intro-sequence" role="dialog" aria-modal="true" aria-label={lang === 'es' ? 'Introducción de Open World Aviation' : 'Open World Aviation introduction'}>
     <div className="intro-stage" aria-hidden="true">
-      <div className="intro-globe">
-        <svg viewBox="0 0 500 500" fill="none">
-          <defs><radialGradient id="intro-fill" cx="38%" cy="30%" r="72%"><stop stopColor="#fff" stopOpacity=".7"/><stop offset="1" stopColor="#8fc3e2" stopOpacity=".2"/></radialGradient></defs>
-          <circle className="intro-sphere" cx="250" cy="250" r="178"/>
-          <ellipse className="intro-grid intro-grid-a" cx="250" cy="250" rx="112" ry="178"/>
-          <ellipse className="intro-grid intro-grid-b" cx="250" cy="250" rx="178" ry="68"/>
-          <path className="intro-route" d="M82 297C155 125 343 111 432 245"/>
-          <g className="intro-flight" opacity="0">
-            <path d="M0-13 3-4 15 1 15 4 3 2 2 13-2 13-3 2-15 4-15 1-3-4Z" fill="#176f9f"/>
-            <animate attributeName="opacity" from="0" to="1" dur=".2s" begin=".55s" fill="freeze"/>
-            <animateMotion path="M82 297C155 125 343 111 432 245" dur="1.25s" begin=".55s" fill="freeze" rotate="auto"/>
-          </g>
-        </svg>
-        <img className="intro-monogram" src="/brand/monogram.png" alt=""/>
+      <div className="intro-symbol">
+        <span className="intro-datum intro-datum-a"/>
+        <AviationMark className="intro-aviation-mark"/>
+        <span className="intro-datum intro-datum-b"/>
+        <span className="intro-mark-label">ADVISORY · OPERATIONS · SOLUTIONS</span>
       </div>
       <img className="intro-wordmark" src="/brand/logo-complete.svg" alt=""/>
       <span className="intro-tagline">ONE WORLD · MANY POSSIBILITIES</span>
@@ -138,7 +113,7 @@ function App() {
   const whatsappHref = `https://wa.me/${contacts.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
   useEffect(() => {
     document.documentElement.lang = lang;
-    document.title = `${isLegal ? legal[lang][legalIndex].title : lang === 'en' ? 'A world of possibilities in aviation' : 'Un mundo de posibilidades en aviación'} | Open World Aviation`;
+    document.title = `${isLegal ? legal[lang][legalIndex].title : lang === 'en' ? 'Aviation solutions. Global perspective.' : 'Soluciones aeronáuticas. Visión global.'} | Open World Aviation`;
     document.querySelector('meta[name="description"]').content = t.meta;
     const url = new URL(window.location.href);
     url.pathname = `/${lang}${isLegal ? legalPaths[legalIndex] : ''}`;
@@ -155,7 +130,7 @@ function App() {
   return <>
     {introVisible && <IntroSequence lang={lang} onFinish={setIntroVisible}/>}
     <a className="skip-link" href="#main">{lang === 'en' ? 'Skip to content' : 'Ir al contenido'}</a>
-    <header className="header"><div className="header-inner">
+    <header className={`header ${isLegal ? '' : 'header-overlay'}`}><div className="header-inner">
       <Brand home={home} />
       <nav id="main-navigation" className={menu ? 'navigation open' : 'navigation'} aria-label={lang === 'en' ? 'Main navigation' : 'Navegación principal'}>
         {['services', 'perspective', 'approach'].map((id, i) => <a key={id} href={anchor(id)} onClick={() => setMenu(false)}>{t.nav[i]}</a>)}
@@ -165,12 +140,12 @@ function App() {
     </div></header>
     <main id="main">
       {isLegal ? <article className="legal-page container"><a className="text-link" href={home}>← {t.back}</a><span className="eyebrow">OPEN WORLD AVIATION</span><h1>{legal[lang][legalIndex].title}</h1>{legalHasPlaceholders && <aside className="draft-notice"><strong>{t.draft}</strong><p>{t.draftText}</p></aside>}<p>{t.englishControls}</p>{legal[lang][legalIndex].lines.map((line, i) => /^\d+\s{2}/.test(line) || (legalIndex === 3 && i > 0 && line.length < 65) ? <h2 key={i}>{line}</h2> : <p key={i} className={line.startsWith('•') ? 'legal-bullet' : ''}>{line.split(/(\[[^\]]+\])/g).map((part, j) => part.startsWith('[') ? <mark key={j}>{part}</mark> : part)}</p>)}</article> : <>
-        <section className="hero container" id="home"><div className="hero-copy"><div className="eyebrow"><span className="small-line"/>{t.eyebrow}</div><h1>{t.hero[0]}<br/><span>{t.hero[1]}</span><br/>{t.hero[2]}</h1><p>{t.intro}</p><a className="button dark" href="#services">{t.discover}<ArrowUpRight size={19}/></a></div><WorldGraphic/><a className="hero-scroll" href="#services"><ArrowDown size={16}/>{t.scroll}</a><span className="hero-index">01 / 04</span></section>
+        <section className="hero hero-cover" id="home"><div className="hero-inner container"><div className="hero-copy"><h1>{t.hero[0]}<br/>{t.hero[1]}</h1><p>{t.intro}</p><a className="button hero-cta" href="#services">{t.discover}<ArrowRight size={21}/></a></div><div className="hero-signature" aria-hidden="true"><AviationMark/><span>OPEN WORLD AVIATION</span></div></div></section>
         <FlightPlanner lang={lang}/><div className="segment-strip"><div className="container">{t.segments.map((s,i) => <span key={s}>{i === 0 ? <Globe2 size={17}/> : <span className="segment-dot"/>}{s}</span>)}</div></div>
         <div className="aviation-panorama"><AviationImage kind="hero" lang={lang}/></div><section className="section container" id="services"><div className="section-heading"><div><span className="eyebrow">{t.servicesLabel}</span><h2>{t.servicesTitle}</h2></div><p>{t.servicesIntro}</p></div><div className="service-list">{list.map((s,i) => <button className="service-row" key={s.title} onClick={() => setDetail(i)} aria-label={`${s.title} — ${t.more}`}><span className="service-number">0{i+1}</span><ServiceIcon index={i}/><h3>{s.title}</h3><p>{s.tagline}</p><span className="service-more">{t.more}<span className="circle-arrow"><ArrowUpRight size={21}/></span></span></button>)}</div></section>
         <section className="perspective" id="perspective"><div className="container perspective-grid"><AviationImage kind="perspective" lang={lang}/><div className="perspective-copy"><span className="eyebrow">{t.aboutLabel}</span><h2>{t.aboutTitle}</h2><p>{t.aboutText}</p><p>{t.aboutText2}</p><div className="values">{t.values.map(([title,description]) => <div key={title}><Check size={17}/><div><h3>{title}</h3><p>{description}</p></div></div>)}</div></div></div></section>
         <section className="section container" id="approach"><div className="section-heading"><div><span className="eyebrow">{t.processLabel}</span><h2>{t.processTitle}</h2></div><ArrowDown className="approach-arrow" size={39} strokeWidth={1}/></div><div className="process-grid">{t.process.map(([title,description],i) => <article key={title}><div className="process-number"><span>0{i+1}</span><Plus size={17}/></div><h3>{title}</h3><p>{description}</p></article>)}</div></section>
-        <section className="contact-section" id="contact"><div className="container contact-grid"><div className="contact-copy"><span className="eyebrow">{t.contactLabel}</span><h2>{t.contactTitle}</h2><p>{t.contactIntro}</p>{contacts.email && <a className="email-link" href={`mailto:${contacts.email}`}><Mail size={18}/>{contacts.email}<ArrowUpRight size={18}/></a>}<div className="contact-signature"><img src="/brand/monogram.png" alt="" loading="lazy"/><span>OPEN WORLD.<br/>PERSONAL CONNECTION.</span></div></div><form ref={formRef} className="contact-form" onSubmit={e => {e.preventDefault(); setReview(true);}}><label className="trap-field" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" value={form.website || ''} onChange={update}/></label><div className="form-grid">
+        <section className="contact-section" id="contact"><div className="container contact-grid"><div className="contact-copy"><span className="eyebrow">{t.contactLabel}</span><h2>{t.contactTitle}</h2><p>{t.contactIntro}</p>{contacts.email && <a className="email-link" href={`mailto:${contacts.email}`}><Mail size={18}/>{contacts.email}<ArrowUpRight size={18}/></a>}<div className="contact-signature"><AviationMark/><span>AVIATION EXPERTISE.<br/>INDEPENDENT PERSPECTIVE.</span></div></div><form ref={formRef} className="contact-form" onSubmit={e => {e.preventDefault(); setReview(true);}}><label className="trap-field" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" value={form.website || ''} onChange={update}/></label><div className="form-grid">
           {[['name',t.name,'text','name'],['email',t.email,'email','email'],['phone',t.phone,'tel','tel'],['company',t.company,'text','organization']].map(([name,label,type,autocomplete]) => <label key={name}>{label}{!['name','email'].includes(name) && <small> ({t.optional})</small>}<input name={name} type={type} autoComplete={autocomplete} required={['name','email'].includes(name)} maxLength={name === 'name' ? 100 : name === 'phone' ? 60 : 160} value={form[name]} onChange={update}/></label>)}
         </div><label>{t.service}<select name="service" value={form.service} onChange={update} required><option value="" disabled>{t.choose}</option>{list.map((s,i) => <option key={s.title} value={i}>{s.title}</option>)}</select></label><label>{t.message}<textarea name="message" value={form.message} onChange={update} rows={3} required maxLength={2500}/></label><p className="form-notice">{t.sensitive}<br/>{t.privacyNotice} <a href={`/${lang}/privacy`}>{t.privacy}</a>.</p><button className="button dark" type="submit">{t.prepare}<ArrowUpRight size={19}/></button></form></div></section>
       </>}
