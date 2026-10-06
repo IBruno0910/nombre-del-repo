@@ -14,7 +14,6 @@ export function shouldShowIntro() {
 export default function IntroSequence({ lang, onFinish }) {
   const dialogRef = useRef(null);
   const isSpanish = lang === 'es';
-  const services = isSpanish ? ['Asesoría', 'Gestión', 'Soluciones'] : ['Advisory', 'Management', 'Solutions'];
 
   useEffect(() => {
     try { sessionStorage.setItem('owa-intro-seen', 'true'); } catch {}
@@ -55,7 +54,6 @@ export default function IntroSequence({ lang, onFinish }) {
         <img src="/brand/logo-complete.svg" alt="" width="1316" height="254" decoding="sync"/>
       </div>
       <div className="brand-intro__rule"/>
-      <div className="brand-intro__services">{services.map(service => <span key={service}>{service}</span>)}</div>
     </div>
     <button className="brand-intro__skip" type="button" onClick={() => onFinish(false)}>
       <span>{isSpanish ? 'Saltar introducción' : 'Skip intro'}</span><ArrowRight size={17} strokeWidth={1.4}/>

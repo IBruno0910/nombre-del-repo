@@ -34,10 +34,6 @@ body.intro-active{overflow:hidden}
 .brand-intro__name{width:min(100%,460px);overflow:hidden;flex:none}
 .brand-intro__name img{width:100%;height:auto;display:block;animation:brand-name .85s .6s cubic-bezier(.16,1,.3,1) both}
 .brand-intro__rule{width:42px;height:1px;background:#b29867;flex:none;animation:brand-rule .7s 1.03s ease both}
-.brand-intro__services{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;row-gap:8px;font-size:10px;letter-spacing:2px;line-height:1.6;text-transform:uppercase;color:#69645b}
-.brand-intro__services span{animation:brand-word .6s 1.1s ease both}
-.brand-intro__services span:nth-child(2){animation-delay:1.22s}
-.brand-intro__services span:nth-child(3){animation-delay:1.34s}
 .brand-intro__skip{
   position:absolute;bottom:max(24px,env(safe-area-inset-bottom));right:max(32px,env(safe-area-inset-right));
   display:flex;align-items:center;gap:18px;min-height:44px;padding:10px 0;
@@ -52,7 +48,6 @@ body.intro-active{overflow:hidden}
 @keyframes brand-gleam{0%{opacity:0;transform:translateX(0)}20%,70%{opacity:.65}100%{opacity:0;transform:translateX(370%)}}
 @keyframes brand-name{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}
 @keyframes brand-rule{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:scaleX(1)}}
-@keyframes brand-word{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes brand-stage-exit{0%,72%{opacity:1;transform:translateY(0)}81%,100%{opacity:0;transform:translateY(-8px)}}
 @keyframes brand-panel-left{0%,79%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 @keyframes brand-panel-right{0%,79%{transform:translateX(0)}100%{transform:translateX(100%)}}
@@ -62,14 +57,12 @@ body.intro-active{overflow:hidden}
   .brand-intro__stage{gap:22px;max-width:330px}
   .brand-intro__emblem{width:150px;max-width:52%}
   .brand-intro__name{width:290px;max-width:100%}
-  .brand-intro__services{font-size:10px;letter-spacing:1.1px;gap:12px}
   .brand-intro__skip{right:24px;bottom:max(18px,env(safe-area-inset-bottom))}
 }
 @media(max-height:480px){
   .brand-intro__stage{gap:12px}
   .brand-intro__emblem{width:146px}
   .brand-intro__name{width:280px}
-  .brand-intro__services{font-size:10px}
   .brand-intro__skip{bottom:12px;right:24px}
 }
 @media(prefers-reduced-motion:reduce){.brand-intro{display:none}}
