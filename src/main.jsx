@@ -7,6 +7,9 @@ import legal from './legal.json';
 import './styles.css';
 import './ui-refresh.css';
 import Modal from './Modal';
+import AviationMark from './AviationMark';
+import IntroSequence, { shouldShowIntro } from './IntroSequence';
+import './navigation.css';
 import { FlightPlanner, SendInquiry } from './forms';
 
 const serviceIcons = [SlidersHorizontal, PlaneTakeoff, ArrowLeftRight, Compass, Package];
@@ -30,49 +33,6 @@ function initialLanguage() {
 }
 function Brand({ home }) {
   return <a className="brand" href={home} aria-label="Open World Aviation — Home"><img src="/brand/logo-complete.svg" alt="Open World Aviation" width="1316" height="254" /></a>;
-}
-function AviationMark({ className = '' }) {
-  return <svg className={`aviation-mark ${className}`} viewBox="0 0 320 170" fill="none" aria-hidden="true">
-    <path className="mark-line mark-line-main" d="M20 104C74 103 117 86 160 47C203 86 246 103 300 104"/>
-    <path className="mark-line mark-line-inner" d="M48 122C96 117 128 104 160 77C192 104 224 117 272 122"/>
-    <path className="mark-line mark-line-horizon" d="M77 137H243"/>
-    <path className="mark-line mark-line-axis" d="M160 25V143"/>
-    <path className="mark-fill" d="M160 37L168 75L160 88L152 75Z"/>
-    <path className="mark-detail" d="M89 107L72 125M231 107L248 125M137 137L160 151L183 137"/>
-  </svg>;
-}
-function shouldShowIntro() {
-  const path = window.location.pathname.replace(/\/$/, '');
-  if (!['', '/en', '/es'].includes(path) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
-  try { return sessionStorage.getItem('owa-intro-seen') !== 'true'; }
-  catch { return true; }
-}
-function IntroSequence({ lang, onFinish }) {
-  useEffect(() => {
-    try { sessionStorage.setItem('owa-intro-seen', 'true'); } catch {}
-    document.body.classList.add('intro-active');
-    const timer = window.setTimeout(() => onFinish(false), 3200);
-    const closeOnEscape = event => { if (event.key === 'Escape') onFinish(false); };
-    window.addEventListener('keydown', closeOnEscape);
-    return () => {
-      window.clearTimeout(timer);
-      window.removeEventListener('keydown', closeOnEscape);
-      document.body.classList.remove('intro-active');
-    };
-  }, [onFinish]);
-  return <div className="intro-sequence" role="dialog" aria-modal="true" aria-label={lang === 'es' ? 'Introducción de Open World Aviation' : 'Open World Aviation introduction'}>
-    <div className="intro-stage" aria-hidden="true">
-      <div className="intro-symbol">
-        <span className="intro-datum intro-datum-a"/>
-        <AviationMark className="intro-aviation-mark"/>
-        <span className="intro-datum intro-datum-b"/>
-        <span className="intro-mark-label">ADVISORY · OPERATIONS · SOLUTIONS</span>
-      </div>
-      <img className="intro-wordmark" src="/brand/logo-complete.svg" alt=""/>
-      <span className="intro-tagline">ONE WORLD · MANY POSSIBILITIES</span>
-    </div>
-    <button className="intro-skip" type="button" onClick={() => onFinish(false)}>{lang === 'es' ? 'Saltar introducción' : 'Skip intro'}</button>
-  </div>;
 }
 function AviationImage({ kind, lang }) {
   const hero = kind === 'hero';

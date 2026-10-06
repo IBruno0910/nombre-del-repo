@@ -1,0 +1,52 @@
+/* Clear photography behind the header, with comfortably sized navigation. */
+.header,.header-inner,.header .navigation,.header-actions{
+  backdrop-filter:none;-webkit-backdrop-filter:none;filter:none;
+}
+.header{background:#fff}
+.header-overlay{background:transparent;box-shadow:none}
+.header-overlay .navigation{background:transparent;box-shadow:none}
+.header-inner{gap:32px}
+.header .navigation{font-size:16px;gap:28px;margin-left:auto;padding:0;border:0;border-radius:0;background:transparent}
+.header .navigation a{position:relative;white-space:nowrap;padding:12px 0;border-radius:0;min-height:44px;line-height:1.4;font-weight:500}
+.header .navigation a:hover{background:transparent;color:#12364b}
+.header .navigation a::after{content:'';position:absolute;bottom:6px;left:0;right:0;height:1px;background:#aa9061;transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+.header .navigation a:hover::after,.header .navigation a:focus-visible::after{transform:scaleX(1)}
+.header-actions{gap:28px;flex-shrink:0}
+.header .header-contact{font-size:16px;white-space:nowrap;min-height:44px;line-height:1.4;font-weight:500;order:-1}
+.header-overlay .header-contact{border:0;padding:12px 0;min-width:0}
+.header .languages{font-size:14px;gap:4px;line-height:1.4;border-left:1px solid #aa9061;padding-left:22px}
+.header .languages button{min-height:44px;min-width:32px;padding:10px 2px;color:#183a4f}
+.header .languages span{color:#183a4f}
+.header .languages button[aria-pressed=true]{text-underline-offset:5px}
+
+/* Switch to the menu before the larger labels can crowd each other. */
+@media(max-width:1100px){
+  .header,.header-overlay{height:84px}
+  .header-inner{width:calc(100% - 48px);gap:16px}
+  .header .brand{width:210px}
+  .header-actions{gap:16px}
+  .header .header-contact{display:none}
+  .header .menu-button{display:grid;width:44px;height:44px}
+  .header .navigation{
+    display:none;position:absolute;inset:100% 0 auto;width:100%;margin:0;
+    flex-direction:column;gap:0;padding:18px 24px 24px;
+    background:#f7f6f2;border-bottom:1px solid #d8d7d2;
+    box-shadow:0 14px 24px #142f4314;max-height:calc(100dvh - 84px);overflow:auto;
+  }
+  .header .navigation.open{display:flex}
+  .header .navigation a{font-size:18px;padding:16px 4px;min-height:52px;color:#183a4f}
+  .header .navigation a::after{display:none}
+  .header .navigation a:hover{background:#e9eeed}
+  .header .mobile-contact{display:block}
+  .header .languages{padding-left:0;border-left:0}
+}
+@media(max-width:560px){
+  .header,.header-overlay{height:76px}
+  .header-inner{width:calc(100% - 32px);gap:8px}
+  .header .brand{width:168px}
+  .header-actions{gap:6px}
+  .header .languages{font-size:13px;gap:0}
+  .header .navigation{max-height:calc(100dvh - 76px);padding-inline:20px}
+}
+@media(max-width:360px){.header .brand{width:138px}.header-inner{gap:4px}.header-actions{gap:0}}
+@media(prefers-reduced-motion:reduce){.header .navigation a::after{transition:none}}

@@ -201,31 +201,6 @@
   filter:hue-rotate(170deg) saturate(1.65);
 }
 
-/* Short, once-per-session brand reveal. */
-body.intro-active{overflow:hidden}
-.intro-sequence{position:fixed;inset:0;z-index:200;background:radial-gradient(circle at 50% 44%,#edf8ff 0,#dceef9 32%,#f8fbfd 70%);display:grid;place-items:center;overflow:hidden;animation:intro-curtain 3.2s cubic-bezier(.72,0,.2,1) both}
-.intro-sequence:before,.intro-sequence:after{content:'';position:absolute;border:1px solid #76aaca24;border-radius:50%;width:min(88vw,880px);aspect-ratio:1;animation:intro-ripple 2.2s .45s ease-out both}
-.intro-sequence:after{width:min(66vw,660px);animation-delay:.72s}
-.intro-stage{display:grid;justify-items:center;position:relative;z-index:1;transform:translateY(-1vh)}
-.intro-globe{width:min(54vw,440px);aspect-ratio:1;position:relative;display:grid;place-items:center}
-.intro-globe svg{width:100%;height:100%;filter:drop-shadow(0 25px 50px #1f5f8422)}
-.intro-sphere,.intro-grid,.intro-route{stroke:#397fa9;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1200;stroke-dashoffset:1200;animation:intro-draw 1.5s cubic-bezier(.35,.1,.15,1) forwards}
-.intro-sphere{stroke-width:1;fill:url('#intro-fill');opacity:.45}
-.intro-grid{stroke-width:.75;opacity:.38;animation-delay:.18s}
-.intro-route{stroke-width:1.6;opacity:.82;animation-delay:.34s}
-.intro-flight{filter:drop-shadow(0 3px 5px #ffffffd9)}
-.intro-monogram{position:absolute;width:40%;opacity:0;filter:hue-rotate(170deg) saturate(1.65) blur(8px);clip-path:inset(0 100% 0 0);animation:intro-mark 1.05s .72s cubic-bezier(.2,.75,.2,1) forwards}
-.intro-wordmark{width:min(43vw,310px);margin-top:-28px;opacity:0;transform:translateY(12px);filter:hue-rotate(170deg) saturate(1.65);animation:intro-wordmark .7s 1.35s ease-out forwards}
-.intro-tagline{font-size:8px;letter-spacing:3.2px;color:#416a84;margin-top:18px;opacity:0;animation:intro-wordmark .6s 1.62s ease-out forwards}
-.intro-skip{position:absolute;right:28px;bottom:25px;z-index:2;color:#315b75;font-size:10px;letter-spacing:.8px;padding:11px 4px;border-bottom:1px solid #7195aa;background:transparent;opacity:0;animation:intro-wordmark .5s .55s ease-out forwards}
-@keyframes intro-draw{to{stroke-dashoffset:0}}
-@keyframes intro-mark{to{opacity:1;filter:hue-rotate(170deg) saturate(1.65) blur(0);clip-path:inset(0 0 0 0)}}
-@keyframes intro-wordmark{to{opacity:1;transform:translateY(0)}}
-@keyframes intro-ripple{from{opacity:0;transform:scale(.72)}to{opacity:1;transform:scale(1)}}
-@keyframes intro-curtain{0%,79%{opacity:1}99%{opacity:0;visibility:visible}100%{opacity:0;visibility:hidden}}
-@media(max-width:560px){.intro-globe{width:min(88vw,390px)}.intro-wordmark{width:230px;margin-top:-20px}.intro-tagline{font-size:7px;letter-spacing:2px}.intro-skip{right:18px;bottom:18px}}
-@media(prefers-reduced-motion:reduce){.intro-sequence{display:none}.intro-sphere,.intro-grid,.intro-route,.intro-flight,.intro-monogram,.intro-wordmark,.intro-tagline,.intro-skip{animation:none}}
-
 /* Integrated photographic cover, based on the approved art direction. */
 .header-overlay{
   position:absolute;
@@ -280,34 +255,7 @@ body.intro-active{overflow:hidden}
 .aviation-mark .mark-detail{stroke:currentColor;stroke-width:1;stroke-linecap:round;opacity:.55}
 .contact-signature .aviation-mark{width:78px;color:#2b7098;flex:0 0 auto}
 
-/* Technical reveal for the new advisory mark. */
-.intro-sequence{background:linear-gradient(145deg,#f8fbfd,#e8f3f9 58%,#fdfcf9)}
-.intro-sequence:before,.intro-sequence:after{
-  border:0;
-  border-radius:0;
-  aspect-ratio:auto;
-  animation:intro-datum 1.5s .15s ease-out both;
-}
-.intro-sequence:before{width:100%;height:1px;background:linear-gradient(90deg,transparent,#6797b366 32%,#6797b366 68%,transparent)}
-.intro-sequence:after{width:1px;height:100%;background:linear-gradient(transparent,#6797b355 28%,#6797b355 72%,transparent)}
-.intro-symbol{width:min(63vw,560px);height:250px;display:grid;place-items:center;position:relative;color:#1d587b}
-.intro-aviation-mark{width:100%}
-.intro-aviation-mark .mark-line,.intro-aviation-mark .mark-detail{stroke-dasharray:500;stroke-dashoffset:500;animation:mark-draw 1.35s cubic-bezier(.3,.05,.15,1) forwards}
-.intro-aviation-mark .mark-line-inner{animation-delay:.14s}
-.intro-aviation-mark .mark-line-horizon,.intro-aviation-mark .mark-detail{animation-delay:.3s}
-.intro-aviation-mark .mark-line-axis{animation-delay:.48s}
-.intro-aviation-mark .mark-fill{opacity:0;transform-origin:center;animation:mark-fill .5s .95s ease-out forwards}
-.intro-datum{position:absolute;background:#6999b563;opacity:0;animation:datum-in .6s .35s ease-out forwards}
-.intro-datum-a{width:72%;height:1px;left:14%;top:50%}
-.intro-datum-b{height:72%;width:1px;top:14%;left:50%}
-.intro-mark-label{position:absolute;bottom:4px;font-size:7px;letter-spacing:3px;color:#456f88;opacity:0;animation:intro-wordmark .6s 1.05s ease-out forwards}
-.intro-wordmark{margin-top:-26px}
-@keyframes mark-draw{to{stroke-dashoffset:0}}
-@keyframes mark-fill{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
-@keyframes datum-in{from{opacity:0;transform:scale(.3)}to{opacity:.65;transform:scale(1)}}
-@keyframes intro-datum{from{opacity:0;transform:scale(.35)}to{opacity:1;transform:scale(1)}}
-
-@media(min-width:561px) and (max-width:900px){
+@media(min-width:561px) and (max-width:1300px){
   .hero-cover{background-size:cover,cover,auto 118%;background-position:center,center,54% 100%}
 }
 @media(max-width:800px){
@@ -329,10 +277,4 @@ body.intro-active{overflow:hidden}
   .hero-cover .hero-copy>p{font-size:14px;max-width:330px}
   .hero-cover .hero-cta{min-width:220px;padding:14px 15px}
   .hero-signature{right:0;bottom:24px;display:none}
-  .intro-symbol{width:min(88vw,420px);height:210px}
-  .intro-mark-label{font-size:6px;letter-spacing:1.8px}
-}
-@media(prefers-reduced-motion:reduce){
-  .intro-aviation-mark .mark-line,.intro-aviation-mark .mark-detail{stroke-dashoffset:0;animation:none}
-  .intro-aviation-mark .mark-fill,.intro-datum,.intro-mark-label{opacity:1;animation:none}
 }

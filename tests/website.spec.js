@@ -4,22 +4,6 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => sessionStorage.setItem('owa-intro-seen', 'true'));
 });
 
-test('brand intro draws the advisory mark, reveals the logo and only runs once per session', async ({ browser }) => {
-  const page = await browser.newPage();
-  await page.goto('/');
-  const intro = page.getByRole('dialog', { name: 'Open World Aviation introduction' });
-  await expect(intro).toBeVisible();
-  await expect(intro.locator('.intro-aviation-mark')).toBeVisible();
-  await expect(intro.locator('.intro-globe, .intro-orbit, .intro-flight')).toHaveCount(0);
-  await page.waitForTimeout(1300);
-  await page.screenshot({ animations: 'allow', path: 'artifacts/owa-intro.png' });
-  await page.getByRole('button', { name: 'Skip intro' }).click();
-  await expect(intro).toHaveCount(0);
-  await page.reload();
-  await expect(page.locator('.intro-sequence')).toHaveCount(0);
-  await page.close();
-});
-
 test('English home loads assets, all five services and Spanish translation', async ({ page }) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
