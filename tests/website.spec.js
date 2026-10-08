@@ -143,7 +143,7 @@ test('approved bilingual headings, metadata, navigation and public contact links
       ['+54 (9 11) 6801-5259', 'tel:+5491168015259'],
       ['openworldaviation.com', 'https://openworldaviation.com/'],
     ]) await expect(links.getByRole('link', { name: label, exact: true })).toHaveAttribute('href', href);
-    await expect(page.locator('.segment-strip')).toHaveText('');
+    await expect(page.locator('.segment-strip')).toHaveCount(0);
     await expect(page.locator('#services .eyebrow, .service-number, #perspective .eyebrow, #approach .eyebrow, #contact .eyebrow')).toHaveCount(0);
     await page.locator('.service-row').first().click();
     await page.getByRole('dialog').getByRole('link', { name: lang === 'es' ? 'Volver al inicio' : 'Back to home' }).click();

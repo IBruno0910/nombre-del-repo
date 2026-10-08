@@ -20,3 +20,13 @@ Selección entregada por el usuario en esta conversación, integrada el 8 de oct
 - Las fotografías descargadas durante la búsqueda previa quedaron fuera de los archivos públicos y no se utilizan en el sitio.
 
 Las imágenes representan cada servicio; no se presentan como flota, instalaciones ni personal propios. Se mantienen los textos y avisos operativos existentes.
+
+## Quiénes somos y contacto
+
+Actualización del 8 de octubre de 2026 con los adjuntos adicionales del usuario:
+
+- `public/images/about-aviation.jpg`: helicóptero junto a un hangar al atardecer, con un avión al fondo. Original de 1122 × 1402 px integrado en Quiénes somos con encuadre adaptable y degradado CSS, sin marco ni epígrafe. Variante `-small.jpg` de 640 px de ancho.
+- `public/images/contact-cockpit.jpg`: cabina de mando, original de 1600 × 900 px. Fondo de la sección Contacto con una capa azul oscuro aplicada mediante CSS para mantener el contraste. Variante `-small.jpg` de 800 px de ancho.
+- `public/images/process-apron.jpg`: aeronave y equipos de asistencia en la plataforma, original de 1600 × 900 px. Fondo de Cómo trabajamos con degradado claro para los tres pasos. Variante `-small.jpg` de 800 px de ancho.
+
+Estas imágenes se convirtieron a JPEG con calidad 88, sin reconstrucción generativa, ampliación ni cambios en su contenido.

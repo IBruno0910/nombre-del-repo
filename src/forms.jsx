@@ -56,7 +56,7 @@ export function FlightPlanner({ lang }) {
   function updateLeg(index, key, value) { setError(''); setLegs(prev => prev.map((leg,i) => i === index ? {...leg,[key]:value} : leg)); }
   function next(e) { e.preventDefault(); if (activeLegs.some((leg,i) => leg.from.trim().toLowerCase() === leg.to.trim().toLowerCase() || (i>0 && leg.date < activeLegs[i-1].date)) || (type === 'round-trip' && returnDate < legs[0].date)) {setError(t.invalid);return;} setError(''); setStep('details'); }
   const personField = e => setPerson(p => ({...p,[e.target.name]:e.target.value}));
-  return <section className="flight-planner container" id="flights" aria-labelledby="flight-title"><div className="flight-heading"><div><h2 id="flight-title">{t.title}</h2></div><PlaneTakeoff size={30} strokeWidth={1}/></div><form onSubmit={next}>
+  return <section className="flight-planner-section" id="flights" aria-labelledby="flight-title"><div className="flight-planner container"><div className="flight-heading"><div><h2 id="flight-title">{t.title}</h2></div><PlaneTakeoff size={30} strokeWidth={1}/></div><form onSubmit={next}>
     <div className="flight-types">{types.map((value,i) => <label key={value}><input type="radio" name="trip-type" value={value} checked={type === value} onChange={() => {setType(value);setError('');}}/><span>{t.types[i]}</span></label>)}</div>
     <div className="itinerary">{activeLegs.map((leg,i) => <div className="flight-row" key={i}>
       <label>{t.from}{i>0 && ` ${i+1}`}<input aria-label={`${t.from}${i ? ` ${i+1}` : ''}`} value={leg.from} onChange={e=>updateLeg(i,'from',e.target.value)} placeholder={t.city} maxLength={120} required/></label>
@@ -77,5 +77,5 @@ export function FlightPlanner({ lang }) {
     <label>{t.message}<textarea name="message" value={person.message} onChange={personField} maxLength={2500} rows={3}/></label><p className="form-notice">{t.disclaimer}</p><button className="button dark" type="submit">{t.review}<ArrowUpRight size={18}/></button>
   </form></Modal>}
   {step==='review' && <SendInquiry lang={lang} data={{kind:'flight',language:lang,...person,flight:{type,legs:activeLegs,returnDate:type==='round-trip'?returnDate:'',passengers:Number(passengers)}}} close={()=>setStep('details')} finished={()=>{setStep('route');setPerson({name:'',email:'',phone:'',message:'',website:''});}}/>}
-  </section>;
+  </div></section>;
 }

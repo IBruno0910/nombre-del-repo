@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowUpRight, ArrowRight, X, Menu, Globe2, Plus, Check, Mail, Phone } from 'lucide-react';
-import { copy, contacts, contactDetails, legalPaths } from './content';
+import { ArrowUpRight, ArrowRight, X, Menu } from 'lucide-react';
+import { copy, contacts, legalPaths } from './content';
 import services from './services.json';
 import legal from './legal.json';
 import './styles.css';
@@ -10,6 +10,9 @@ import Modal from './Modal';
 import IntroSequence, { shouldShowIntro } from './IntroSequence';
 import './navigation.css';
 import ServiceBanners from './ServiceBanners';
+import AboutSection from './AboutSection';
+import ContactSection from './ContactSection';
+import ProcessSection from './ProcessSection';
 import { FlightPlanner, SendInquiry } from './forms';
 
 function InstagramIcon() {
@@ -26,19 +29,6 @@ function initialLanguage() {
 }
 function Brand({ home }) {
   return <a className="brand" href={home} aria-label="Open World Aviation — Home"><img src="/brand/logo-complete.svg" alt="Open World Aviation" width="1316" height="254" /></a>;
-}
-function AviationImage({ lang }) {
-  return <figure className="aviation-image perspective-photo">
-    <div className="photo-frame"><img
-      src="/images/engine-detail.jpg"
-      srcSet="/images/engine-detail-small.jpg 480w, /images/engine-detail.jpg 800w"
-      sizes="(max-width: 560px) 82vw, 38vw"
-      width="800" height="1200"
-      alt={lang === 'en' ? 'Illustrative close-up of an aircraft engine inside a bright hangar' : 'Detalle ilustrativo de un motor aeronáutico dentro de un hangar luminoso'}
-      loading="lazy" decoding="async"
-    /></div>
-    <figcaption><span>{lang === 'en' ? 'A closer look at every detail.' : 'Una mirada atenta a cada detalle.'}</span></figcaption>
-  </figure>;
 }
 function App() {
   const [lang, setLang] = useState(initialLanguage);
@@ -74,7 +64,7 @@ function App() {
   const update = e => setForm(p => ({ ...p, [e.target.name]: e.target.value }));
   function askAbout(serviceId) {
     setDetail(null); setForm(p => ({ ...p, service: String(serviceId) }));
-    requestAnimationFrame(() => { formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' }); formRef.current.querySelector('input').focus({ preventScroll: true }); });
+    requestAnimationFrame(() => { formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' }); formRef.current.querySelector('input[name="name"]').focus({ preventScroll: true }); });
   }
   const anchor = id => isLegal ? `${home}#${id}` : `#${id}`;
   return <>
@@ -91,18 +81,21 @@ function App() {
     <main id="main" tabIndex={-1}>
       {isLegal ? <article className="legal-page container"><a className="text-link" href={home}>← {t.back}</a><span className="eyebrow">OPEN WORLD AVIATION</span><h1>{legal[lang][legalIndex].title}</h1>{legalHasPlaceholders && <aside className="draft-notice"><strong>{t.draft}</strong><p>{t.draftText}</p></aside>}<p>{t.englishControls}</p>{legal[lang][legalIndex].lines.map((line, i) => /^\d+\s{2}/.test(line) || (legalIndex === 3 && i > 0 && line.length < 65) ? <h2 key={i}>{line}</h2> : <p key={i} className={line.startsWith('•') ? 'legal-bullet' : ''}>{line.split(/(\[[^\]]+\])/g).map((part, j) => part.startsWith('[') ? <mark key={j}>{part}</mark> : part)}</p>)}</article> : <>
         <section className="hero hero-cover" id="home"><div className="hero-inner container"><div className="hero-copy"><h1>{t.hero}</h1><p>{t.intro}</p><a className="button hero-cta" href="#services">{t.discover}<ArrowRight size={21}/></a></div></div></section>
-        <FlightPlanner lang={lang}/><div className="segment-strip" aria-hidden="true"><div className="container"/></div>
-        <section className="section" id="services"><div className="section-heading container"><div><h2>{t.servicesTitle}</h2></div><p>{t.servicesIntro}</p></div><ServiceBanners services={list} lang={lang} more={t.more} onSelect={setDetail}/></section>
-        <section className="perspective" id="perspective"><div className="container perspective-grid"><AviationImage lang={lang}/><div className="perspective-copy"><h2>{t.aboutTitle}</h2><p>{t.aboutText}</p><div className="values">{t.values.map(([title,description]) => <div key={title}><Check size={17}/><div><h3>{title}</h3><p>{description}</p></div></div>)}</div></div></div></section>
-        <section className="section container" id="approach"><div className="section-heading"><div><h2>{t.processTitle}</h2></div><p>{t.processIntro}</p></div><div className="process-grid">{t.process.map(([title,description]) => <article key={title}><div className="process-number" aria-hidden="true"><Plus size={17}/></div><h3>{title}</h3><p>{description}</p></article>)}</div></section>
-        <section className="contact-section" id="contact"><div className="container contact-grid"><div className="contact-copy"><h2>{t.contactTitle}</h2><p>{t.contactIntro}</p><div className="contact-links">{contactDetails.map(({ label, href, type }) => { const Icon = type === 'email' ? Mail : type === 'phone' ? Phone : Globe2; return <a className="email-link" key={href} href={href}><Icon size={18} aria-hidden="true"/><span>{label}</span><ArrowUpRight size={18} aria-hidden="true"/></a>; })}</div><div className="contact-signature"><img src="/brand/monogram.png" alt="" width="326" height="174" loading="lazy"/><span>{t.footerText}</span></div></div><form ref={formRef} className="contact-form" onSubmit={e => {e.preventDefault(); setReview(true);}}><label className="trap-field" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" value={form.website || ''} onChange={update}/></label><div className="form-grid">
-          {[['name',t.name,'text','name'],['email',t.email,'email','email'],['phone',t.phone,'tel','tel'],['company',t.company,'text','organization']].map(([name,label,type,autocomplete]) => <label key={name}>{label}{!['name','email'].includes(name) && <small> ({t.optional})</small>}<input name={name} type={type} autoComplete={autocomplete} required={['name','email'].includes(name)} maxLength={name === 'name' ? 100 : name === 'phone' ? 60 : 160} value={form[name]} onChange={update}/></label>)}
-        </div><label>{t.service}<select name="service" value={form.service} onChange={update} required><option value="" disabled>{t.choose}</option>{list.map(s => <option key={s.id} value={s.id}>{s.title}</option>)}</select></label><label>{t.message}<textarea name="message" value={form.message} onChange={update} rows={3} required maxLength={2500}/></label><p className="form-notice">{t.sensitive}<br/>{t.privacyNotice} <a href={`/${lang}/privacy`}>{t.privacy}</a>.</p><button className="button dark" type="submit">{t.prepare}<ArrowUpRight size={19}/></button></form></div></section>
+        <FlightPlanner lang={lang}/>
+        <section className="section" id="services" aria-labelledby="services-title">
+          <header className="services-heading">
+            <div className="container services-heading-inner"><h2 id="services-title">{t.servicesTitle}</h2><p>{t.servicesIntro}</p></div>
+          </header>
+          <ServiceBanners services={list} lang={lang} more={t.more} onSelect={setDetail}/>
+        </section>
+        <AboutSection lang={lang} content={t}/>
+        <ProcessSection content={t}/>
+        <ContactSection lang={lang} content={t} services={list} form={form} formRef={formRef} onChange={update} onReview={() => setReview(true)}/>
       </>}
     </main>
     <footer><div className="container"><div className="footer-top"><Brand home={home}/><p>{t.footerText}</p><a href={anchor('contact')}>{t.contact}<ArrowUpRight size={18}/></a></div><p className="operational-note">{t.disclaimer}</p><div className="footer-bottom"><span>© {new Date().getFullYear()} Open World Aviation. {t.rights}</span><nav aria-label={lang === 'en' ? 'Legal information' : 'Información legal'}>{legalPaths.map((path,i) => <a key={path} href={`/${lang}${path}`}>{t.footerLinks[i]}</a>)}</nav><a className="footer-social" href={contacts.instagram} target="_blank" rel="noopener noreferrer" aria-label="Open World Aviation on Instagram"><InstagramIcon/><span>Instagram</span></a><a className="back-top" href="#main" aria-label={lang === 'en' ? 'Back to top' : 'Volver arriba'}>↑</a></div></div></footer>
     <a className="whatsapp-fab" href={whatsappHref} target="_blank" rel="noopener noreferrer" aria-label={lang === 'es' ? 'Contactar a Open World Aviation por WhatsApp' : 'Contact Open World Aviation on WhatsApp'}><WhatsAppIcon/></a>
-    {selectedService && <Modal title={selectedService.title} close={() => setDetail(null)} closeLabel={t.close}>{selectedService.paragraphs.map(p => <p key={p}>{p}</p>)}<p className="modal-tagline">{selectedService.tagline}</p>{detail === 1 && <p className="form-notice">{t.disclaimer}</p>}<button className="button dark" onClick={() => askAbout(selectedService.id)}>{t.consult}<ArrowUpRight size={18}/></button><a className="text-link service-detail-back" href="#home" onClick={() => setDetail(null)}>{t.back}</a></Modal>}
+    {selectedService && <Modal className="service-detail-modal" title={selectedService.title} close={() => setDetail(null)} closeLabel={t.close}>{selectedService.paragraphs.map(p => <p key={p}>{p}</p>)}<p className="modal-tagline">{selectedService.tagline}</p>{detail === 1 && <p className="form-notice">{t.disclaimer}</p>}<button className="button dark" onClick={() => askAbout(selectedService.id)}>{t.consult}<ArrowUpRight size={18}/></button><a className="text-link service-detail-back" href="#home" onClick={() => setDetail(null)}>{t.back}</a></Modal>}
     {review && <SendInquiry lang={lang} data={{ ...form, kind: 'contact', service: Number(form.service), language: lang }} close={() => setReview(false)} finished={() => {setReview(false);setForm({name:'',email:'',phone:'',company:'',service:'',message:'',website:''});}}/>}
   </>;
 }

@@ -1,6 +1,23 @@
 /* Edge-to-edge photography; each banner keeps a single, accessible detail action. */
-#services { padding-bottom: 0; }
-#services > .section-heading { margin-bottom: 48px; }
+#services { padding: 0; background: #fff; }
+.services-heading {
+  position: relative; isolation: isolate;
+  background: #fff;
+  padding-block: 60px;
+}
+.services-heading-inner {
+  position: relative; width: min(1240px, calc(100% - 112px));
+  display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  align-items: end; gap: 48px;
+}
+.services-heading h2 {
+  margin: 0; color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(44px, 4vw, 60px); font-weight: 400;
+  line-height: 1.08; letter-spacing: -1.5px;
+}
+.services-heading h2::before { content: ''; display: block; width: 48px; height: 2px; background: #b99960; margin-bottom: 18px; }
+.services-heading p { max-width: 540px; margin: 0; font-size: 17px; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
 #services .service-banners { display: block; border: 0; }
 .service-banner {
   position: relative;
@@ -94,6 +111,9 @@
   }
 }
 @media (max-width: 800px) {
+  .services-heading { padding-block: 44px; }
+  .services-heading-inner { width: calc(100% - 48px); grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .services-heading p { max-width: 540px; font-size: 16px; }
   .service-banner { min-height: 620px; min-height: clamp(560px, 76svh, 760px); }
   .service-banner-content { flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 28px; padding-block: 85px 52px; }
   .service-banner-copy { flex: none; }
@@ -102,7 +122,9 @@
   #services .service-more { gap: 16px; }
 }
 @media (max-width: 560px) {
-  #services > .section-heading { margin-bottom: 32px; }
+  .services-heading-inner { width: calc(100% - 40px); }
+  .services-heading h2 { font-size: 44px; letter-spacing: -1px; }
+  .services-heading p { max-width: 330px; font-size: 15px; }
   .service-banner { min-height: 600px; min-height: max(600px, 84svh); }
   .service-photo img { object-position: var(--photo-mobile-position, center); }
   .service-banner-content { padding-block: 85px 46px; gap: 25px; }

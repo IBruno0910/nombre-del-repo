@@ -24,15 +24,22 @@
 .art-coordinate.top,.art-coordinate.bottom{background:#ffffffbd;border-color:#d3e3ed;color:#4e7a98;font-size:7px;letter-spacing:1px;padding:10px 14px;backdrop-filter:blur(8px)}
 .art-coordinate.top{left:0;top:6%}.art-coordinate.bottom{right:0;bottom:4%}
 .art-cross{color:#468dbb;right:5%;top:8%}
+.flight-planner-section{position:relative;background:#f3f8fd url('/images/flight-map.jpg') center 33% / cover no-repeat;padding-block:clamp(36px,4vw,64px) 56px;margin:0;border:0;border-radius:0}
+.flight-planner-section::after{content:'';position:absolute;inset:auto 0 0;height:50px;background:linear-gradient(transparent,#fff);pointer-events:none}
 .flight-planner{background:#fff;border:1px solid #dce7ee;border-radius:14px;padding:29px 30px;margin-top:0;margin-bottom:22px;box-shadow:0 14px 44px #234f7410;z-index:2}
+.flight-planner-section .flight-planner{margin-block:0}
+@media(min-width:1101px){.flight-planner-section .flight-planner{width:min(1320px,82.5%)}}
 .flight-heading .eyebrow{color:#3284b6}
 .flight-heading h2{font-weight:500;font-size:27px}
 .flight-heading>svg,.flight-row .swap-flight{color:#347eaa}
 .flight-types input{accent-color:#287ead}
 .flight-types label{color:#48677c}
 .flight-row>label{color:#526f82}
-.flight-row input{border-color:#cbdde9;color:#193a50}
-.flight-row input:focus{outline-color:#66a5cc}
+.flight-row input{border:0;border-bottom:1px solid #cbdde9;border-radius:0;background:transparent;padding:13px 0;color:#193a50}
+.flight-row input::placeholder{color:#526f82;opacity:1}
+.flight-row input:focus{outline-color:#66a5cc;background:#fff}
+.flight-planner .flight-note{color:#405e73}
+@media(max-width:800px){.flight-planner-section{background-image:url('/images/flight-map-small.jpg');padding-block:32px 42px}}
 .flight-note{color:#6a8292}
 .segment-strip{border-color:#e8eef3}
 .segment-strip>.container{border:0;padding-block:20px}
@@ -222,21 +229,21 @@
 
 .hero-cover{
   width:100%;
-  min-height:650px;
+  min-height:0;
   display:block;
   padding:0;
   background-image:
     linear-gradient(90deg,#07141f26 0,#07141f05 50%,transparent 72%),
     linear-gradient(0deg,#07131fc7 0,#07131f5c 26%,transparent 58%),
     url('/images/executive-flight-hero.jpg');
-  background-size:cover;
-  background-position:center;
+  background-size:cover,cover,112% auto;
+  background-position:center,center,center bottom;
   background-repeat:no-repeat;
   isolation:isolate;
 }
 .hero-cover:before{display:none}
-.hero-cover .hero-inner{min-height:650px;position:relative;padding-top:100px}
-.hero-cover .hero-copy{position:absolute;left:0;bottom:43px;color:#fff;width:min(620px,70%);z-index:2}
+.hero-cover .hero-inner{min-height:0;position:relative;padding-block:clamp(430px,32vw,580px) 40px}
+.hero-cover .hero-copy{position:relative;left:auto;bottom:auto;color:#fff;width:min(680px,74%);z-index:2}
 .hero-cover h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(43px,4.2vw,62px);font-weight:400;line-height:.98;letter-spacing:-2.5px;margin:0 0 12px;text-wrap:balance;text-shadow:0 2px 24px #06111d55}
 .hero-cover .hero-copy>p{max-width:480px;color:#fff;font-size:16px;line-height:1.55;text-shadow:0 1px 15px #07172599}
 .hero-cover .hero-cta{margin-top:17px;min-width:228px;color:#fff;background:#07131f1f;border:1px solid #c6ad78;border-radius:0;padding:13px 15px;font-size:12px;backdrop-filter:blur(3px)}
@@ -250,24 +257,24 @@
   .header-overlay{height:82px}
   .header-overlay .navigation{background:#fffffff4;border-bottom:1px solid #dce8f0;box-shadow:0 15px 30px #0a26331f}
   .header-overlay .navigation a:hover{background:#edf5fa}
-  .hero-cover,.hero-cover .hero-inner{min-height:680px}
+  .hero-cover,.hero-cover .hero-inner{min-height:0}
+  .hero-cover .hero-inner{padding-block:420px 40px}
   .hero-cover{background-size:cover,cover,auto 118%;background-position:center,center,54% 100%}
   .hero-cover .hero-copy{width:min(520px,80%)}
 }
 @media(max-width:560px){
   .header-overlay{height:76px}
-  .hero-cover,.hero-cover .hero-inner{min-height:700px}
-  .hero-cover{background-image:linear-gradient(0deg,#06131fd6 0,#06131f75 39%,transparent 72%),url('/images/executive-flight-hero-small.jpg');background-size:cover,auto 120%;background-position:center,51% 54%}
-  .hero-cover .hero-inner{width:calc(100% - 40px);padding-top:76px}
-  .hero-cover .hero-copy{left:0;bottom:46px;width:100%}
-  .hero-cover h1{font-size:44px;letter-spacing:-1.9px;line-height:1}
+  .hero-cover,.hero-cover .hero-inner{min-height:0}
+  .hero-cover{background-image:linear-gradient(0deg,#06131fd6 0,#06131f75 39%,transparent 72%),url('/images/executive-flight-hero-small.jpg');background-size:cover,auto 120%;background-position:center,51% bottom}
+  .hero-cover .hero-inner{width:calc(100% - 40px);padding-block:440px 36px}
+  .hero-cover .hero-copy{left:auto;bottom:auto;width:100%}
+  .hero-cover h1{font-size:clamp(38px,10vw,44px);letter-spacing:-1.5px;line-height:1}
   .hero-cover .hero-copy>p{font-size:14px;max-width:330px}
   .hero-cover .hero-cta{min-width:220px;padding:14px 15px}
 }
 
 /* Text layout for the approved bilingual copy. */
 #main:focus{outline:none}
-.hero-cover + .flight-planner{margin-top:32px}
 .hero-cover h1{word-break:normal;overflow-wrap:normal;hyphens:none}
 .aviation-image figcaption>span:first-child{white-space:normal;min-width:0}
 .contact-copy>p{white-space:pre-line;max-width:410px}
@@ -278,5 +285,6 @@
 .contact-signature span{max-width:170px}
 .section-heading h2,.perspective-copy h2,.contact-copy h2{margin-top:0;text-wrap:balance}
 .service-detail-back{display:flex;width:fit-content;margin-top:16px}
+.modal.service-detail-modal{padding:36px}
+@media(max-width:560px){.modal.service-detail-modal{padding:40px 20px 24px}}
 .footer-top p{max-width:250px}
-@media(max-width:560px){.hero-cover + .flight-planner{margin-top:24px}}
