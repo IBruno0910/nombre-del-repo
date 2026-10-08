@@ -31,7 +31,7 @@ export default function IntroSequence({ lang, onFinish }) {
       motion.removeEventListener('change', onMotionChange);
       document.body.classList.remove('intro-active');
       dialog.close();
-      document.querySelector('.header .brand')?.focus({ preventScroll: true });
+      document.getElementById('main')?.focus({ preventScroll: true });
     };
   }, [onFinish]);
 

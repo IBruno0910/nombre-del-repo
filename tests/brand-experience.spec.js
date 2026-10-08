@@ -5,7 +5,7 @@ async function freezeClock(page) {
   await page.clock.pauseAt(new Date('2026-01-01T00:00:01Z'));
 }
 
-test('intro keeps its mark, brand and services separate through the reveal on all screen sizes', async ({ page }) => {
+test('intro keeps its monogram and wordmark separate through the reveal on all screen sizes', async ({ page }) => {
   await freezeClock(page);
   for (const [width, height, lang] of [[1440, 900, 'en'], [390, 844, 'es'], [320, 568, 'es'], [844, 390, 'en']]) {
     await page.setViewportSize({ width, height });
@@ -33,7 +33,7 @@ test('intro keeps its mark, brand and services separate through the reveal on al
     await page.getByRole('button', { name: lang === 'es' ? 'Saltar introducción' : 'Skip intro' }).click();
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await expect(page.locator('body')).not.toHaveClass(/intro-active/);
-    await expect(page.locator('.header .brand')).toBeFocused();
+    await expect(page.locator('#main')).toBeFocused();
   }
 });
 
@@ -44,7 +44,9 @@ test('intro exits automatically, restores the page and only appears once per ses
   await page.clock.runFor(3500);
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(page.locator('body')).not.toHaveClass(/intro-active/);
-  await expect(page.locator('.header .brand')).toBeFocused();
+  await expect(page.locator('#main')).toBeFocused();
+  await expect(page.locator('#main')).toHaveCSS('outline-style', 'none');
+  await expect(page.locator('.header .brand')).not.toBeFocused();
   await page.reload();
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });

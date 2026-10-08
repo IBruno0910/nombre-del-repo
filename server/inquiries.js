@@ -2,7 +2,8 @@ import { createHash } from 'node:crypto';
 import nodemailer from 'nodemailer';
 
 const RECIPIENT = 'contact@openworldaviation.com';
-const serviceNames = ['Aircraft management', 'Private charter and flight support', 'Aircraft sales and acquisitions', 'Aviation consulting and corporate solutions', 'Aircraft support and logistics'];
+// Preserve numeric service identities for existing clients and in-progress inquiries.
+const serviceNames = ['Aircraft management', 'Private flights', 'Aircraft sales and acquisitions', 'Corporate solutions', 'Support and logistics'];
 const emailPattern = /^[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+$/;
 function field(value, max, required = false) {
   if (typeof value !== 'string' || value.length > max || /[\x00-\x08\x0b\x0c\x0e-\x1f]/.test(value) || (required && !value.trim())) throw new Error('invalid');

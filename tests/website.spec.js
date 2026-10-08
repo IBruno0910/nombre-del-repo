@@ -10,9 +10,12 @@ test('English home loads assets, all five services and Spanish translation', asy
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  await expect(page.locator('h1')).toContainText('Aviation solutions.');
-  await expect(page.locator('.hero-copy > p')).toHaveText('Experience and sound judgment for every operation.');
+  await expect(page.locator('h1')).toContainText('A world of possibilities in aviation');
+  await expect(page.locator('.hero-copy > p')).toHaveText('We combine experience, expertise, and a global network to deliver the right solution for every aircraft, every operation, and every client.');
   await expect(page.locator('.service-row')).toHaveCount(5);
+  await expect(page.locator('.aviation-panorama')).toHaveCount(0);
+  await expect(page.locator('.service-photo img')).toHaveCount(5);
+  expect(new Set(await page.locator('.service-photo img').evaluateAll(images => images.map(image => image.getAttribute('src')))).size).toBe(5);
   await page.evaluate(async () => { await document.fonts.ready; for (const img of document.images) { img.loading = 'eager'; await img.decode(); } });
   await expect(page.locator('body')).not.toContainText(/inajet/i);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), JSON.stringify(await page.evaluate(() => [...document.querySelectorAll("body *")].filter(el => { const r=el.getBoundingClientRect(); return r.right > innerWidth + 1 && r.width > 0; }).map(el => ({tag:el.tagName,cls:el.className,right:el.getBoundingClientRect().right}))))).toBe(true);
@@ -20,14 +23,13 @@ test('English home loads assets, all five services and Spanish translation', asy
   await page.getByRole('button', { name: 'Cambiar a español' }).click();
   await expect(page).toHaveURL(/\/es$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
-  await expect(page.locator('h1')).toContainText('Soluciones aeronáuticas.');
-  await expect(page.locator('h1')).toContainText('Visión global.');
-  await expect(page.locator('.hero-copy > p')).toHaveText('Experiencia y criterio para cada operación.');
+  await expect(page.locator('h1')).toHaveText('Un mundo de posibilidades en la aviación');
+  await expect(page.locator('.hero-copy > p')).toHaveText('Combinamos experiencia, conocimiento y una red global para ofrecer la solución adecuada para cada aeronave, cada operación y cada cliente.');
   await expect(page.locator('#main-navigation')).toContainText('Servicios');
   await expect(page.locator('#main-navigation')).toContainText('Quiénes somos');
   await expect(page.locator('#main-navigation')).toContainText('Cómo trabajamos');
-  await expect(page.locator('.header-contact')).toContainText('Contáctanos');
-  await expect(page.locator('.service-row').first()).toContainText('Gestión de aeronaves');
+  await expect(page.locator('.header-contact')).toContainText('Contacto');
+  await expect(page.locator('.service-row').first()).toContainText('Compra y venta de aeronaves');
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   expect(errors).toEqual([]);
@@ -60,11 +62,101 @@ test('service inquiry submits to the API and confirms only after acceptance', as
   await expect(form.getByLabel('Full name')).toHaveValue('');
 });
 
+for (const lang of ['es', 'en']) {
+  test(`reordered services keep their details, selection and review identity in ${lang}`, async ({ page }) => {
+    test.setTimeout(45000);
+    let submissions = 0;
+    await page.route('**/api/inquiries', route => { submissions++; return route.abort(); });
+    const expected = {
+      es: [
+        [2, 'Compra y venta de aeronaves', 'inspecciones precompra'],
+        [0, 'Gestión de aeronaves', 'supervisión de mantenimiento'],
+        [1, 'Vuelos privados', 'operadores calificados'],
+        [3, 'Soluciones corporativas', 'evaluación de pistas e infraestructura'],
+        [4, 'Soporte y logística', 'aeronave está fuera de servicio'],
+      ],
+      en: [
+        [2, 'Aircraft sales and acquisitions', 'pre-purchase inspection coordination'],
+        [0, 'Aircraft management', 'maintenance oversight'],
+        [1, 'Private flights', 'qualified operators'],
+        [3, 'Corporate solutions', 'runway and infrastructure assessment'],
+        [4, 'Support and logistics', 'aircraft is out of service'],
+      ],
+    };
+    await page.goto(`/${lang}`);
+    const titles = expected[lang].map(([, title]) => title);
+    const form = page.locator('.contact-form');
+    await expect(page.locator('.service-row h3')).toHaveText(titles);
+    await expect(form.locator('option:not([disabled])')).toHaveText(titles);
+    for (const [id, title, detail] of expected[lang]) {
+      await page.getByRole('button', { name: `${title} — ${lang === 'es' ? 'Conocer más' : 'Learn more'}` }).click();
+      const dialog = page.getByRole('dialog');
+      await expect(dialog.getByRole('heading')).toHaveText(title);
+      await expect(dialog).toContainText(detail);
+      await expect(dialog.locator('.form-notice')).toHaveCount(id === 1 ? 1 : 0);
+      await dialog.getByRole('button', { name: lang === 'es' ? 'Consultar por este servicio' : 'Ask about this service' }).click();
+      await expect(form.locator('select')).toHaveValue(String(id));
+      // A language change must preserve the selected service, even after reordering.
+      await page.getByRole('button', { name: lang === 'es' ? 'Switch to English' : 'Cambiar a español' }).click();
+      await expect(form.locator('select')).toHaveValue(String(id));
+      await page.getByRole('button', { name: lang === 'es' ? 'Cambiar a español' : 'Switch to English' }).click();
+      await form.locator('[name="name"]').fill('Editorial review');
+      await form.locator('[name="email"]').fill('review@example.com');
+      await form.locator('[name="message"]').fill('Service identity review');
+      await form.getByRole('button', { name: lang === 'es' ? 'Preparar consulta' : 'Prepare inquiry' }).click();
+      await expect(dialog.getByRole('heading')).toHaveText(lang === 'es' ? 'Su consulta, lista para revisar' : 'Your inquiry, ready to review');
+      await expect(dialog.locator('.inquiry-summary strong')).toHaveText(title);
+      await expect(dialog).toContainText(lang === 'es' ? 'Su consulta todavía no se ha enviado.' : 'Your inquiry has not been sent yet.');
+      await dialog.getByRole('button', { name: lang === 'es' ? 'Editar datos' : 'Edit details' }).click();
+      await expect(form.locator('[name="message"]')).toHaveValue('Service identity review');
+    }
+    expect(submissions).toBe(0);
+  });
+}
+
+test('approved bilingual headings, metadata, navigation and public contact links are complete', async ({ page }) => {
+  for (const [lang, heading, nav] of [
+    ['es', 'Un mundo de posibilidades en la aviación', ['Servicios', 'Quiénes somos', 'Cómo trabajamos']],
+    ['en', 'A world of possibilities in aviation', ['Services', 'About us', 'How we work']],
+  ]) {
+    await page.goto(`/${lang}`);
+    await expect(page.locator('h1')).toHaveCount(1);
+    await expect(page.locator('h1')).toHaveText(heading);
+    await expect(page).toHaveTitle(`Open World Aviation | ${heading}`);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', lang === 'es'
+      ? 'Compra y venta de aeronaves, gestión, vuelos privados, soluciones corporativas y soporte logístico. Experiencia y coordinación global.'
+      : 'Aircraft sales and acquisitions, management, private flights, corporate solutions and logistics support. Experience and global coordination.');
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+    for (const [i, anchor] of ['services', 'perspective', 'approach'].entries()) {
+      const link = page.locator('#main-navigation').getByRole('link', { name: nav[i], exact: true });
+      await expect(link).toHaveAttribute('href', `#${anchor}`);
+      await link.click();
+      await expect(page).toHaveURL(new RegExp(`#${anchor}$`));
+      await expect(page.locator(`#${anchor}`)).toBeInViewport();
+    }
+    await expect(page.locator('.header-contact')).toHaveText(lang === 'es' ? 'Contacto' : 'Contact');
+    const links = page.locator('.contact-links');
+    for (const [label, href] of [
+      ['fernando@openworldaviation.com', 'mailto:fernando@openworldaviation.com'],
+      ['contact@openworldaviation.com', 'mailto:contact@openworldaviation.com'],
+      ['+1 (305) 430-5398', 'tel:+13054305398'],
+      ['+54 (9 11) 6801-5259', 'tel:+5491168015259'],
+      ['openworldaviation.com', 'https://openworldaviation.com/'],
+    ]) await expect(links.getByRole('link', { name: label, exact: true })).toHaveAttribute('href', href);
+    await expect(page.locator('.segment-strip')).toHaveText('');
+    await expect(page.locator('#services .eyebrow, .service-number, #perspective .eyebrow, #approach .eyebrow, #contact .eyebrow')).toHaveCount(0);
+    await page.locator('.service-row').first().click();
+    await page.getByRole('dialog').getByRole('link', { name: lang === 'es' ? 'Volver al inicio' : 'Back to home' }).click();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.locator('#home')).toBeInViewport();
+  }
+});
+
 test('form requires valid input and charter description preserves operator distinction', async ({ page }) => {
   await page.goto('/es');
   await page.getByRole('button', { name: 'Preparar consulta' }).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Charter privado y soporte de vuelo — Conocer más' }).click();
+  await page.getByRole('button', { name: 'Vuelos privados — Conocer más' }).click();
   await expect(page.getByRole('dialog')).toContainText('operadores calificados');
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(0);
@@ -83,7 +175,7 @@ test('localized legal URLs retain language and publish completed privacy and ter
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   }
   await page.getByRole('link', { name: 'Back to home' }).click();
-  await expect(page.locator('h1')).toContainText('Aviation solutions.');
+  await expect(page.locator('h1')).toContainText('A world of possibilities in aviation');
 });
 
 test('WhatsApp and Instagram links use the published business contacts', async ({ page }) => {
@@ -101,7 +193,7 @@ test('mobile menu and dialogs are usable at 390px and 320px without overflow', a
   await page.screenshot({ animations: 'disabled', path: 'artifacts/owa-mobile.png', fullPage: true });
   await page.getByRole('button', { name: 'Open menu' }).click();
   await expect(page.locator('#main-navigation')).toBeVisible();
-  await page.locator('#main-navigation').getByRole('link', { name: 'Our services' }).click();
+  await page.locator('#main-navigation').getByRole('link', { name: 'Services' }).click();
   await expect(page.getByRole('button', { name: 'Open menu' })).toHaveAttribute('aria-expanded', 'false');
   await page.locator('.service-row').last().click();
   await expect(page.getByRole('dialog')).toContainText('AOG support coordination');

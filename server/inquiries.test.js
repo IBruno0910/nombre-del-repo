@@ -2,10 +2,24 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Readable } from 'node:stream';
 import { randomUUID } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { createInquiryHandler, validateInquiry, leadEmail, receiptEmail, safeMailError, smtpAuth } from './inquiries.js';
 const env = { SMTP_USER:'test@example.com', SMTP_PASS:'test-only', MAIL_FROM:'Open World Aviation <contact@openworldaviation.com>', SEND_AUTOREPLY:'true', SITE_ORIGIN:'https://example.com' };
 const base = () => ({ kind:'contact',language:'en',name:'Test Visitor',email:'visitor@example.com',phone:'',company:'',message:'Acquisition inquiry',service:2,requestId:randomUUID(),website:'' });
 const future = days => new Date(Date.now()+days*86400000).toISOString().slice(0,10);
+
+test('service display order preserves the inquiry API identities and email subjects', () => {
+  const catalog = JSON.parse(readFileSync(new URL('../src/services.json', import.meta.url), 'utf8'));
+  const orderedServices = [[2, 'Aircraft sales and acquisitions'], [0, 'Aircraft management'], [1, 'Private flights'], [3, 'Corporate solutions'], [4, 'Support and logistics']];
+  assert.deepEqual(catalog.en.map(s => [s.id, s.title]), orderedServices);
+  assert.deepEqual(catalog.es.map(s => s.id), orderedServices.map(([id]) => id));
+  for (const [id, title] of orderedServices) {
+    const data = validateInquiry({ ...base(), service: id });
+    const email = leadEmail(data, env.MAIL_FROM);
+    assert.equal(email.subject, `Inquiry: ${title}`);
+    assert.deepEqual(email.to, ['contact@openworldaviation.com']);
+  }
+});
 async function request(handler,data,options={}) {
   const req = Readable.from([Buffer.from(JSON.stringify(data))]); req.method=options.method || 'POST'; req.headers={host:'example.com',origin:'https://example.com','content-type':'application/json',...options.headers}; req.socket={remoteAddress:'127.0.0.1'};
   let status,body;
