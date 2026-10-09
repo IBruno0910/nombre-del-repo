@@ -29,7 +29,7 @@ function initialLanguage() {
   return new URLSearchParams(window.location.search).get('lang') === 'es' ? 'es' : 'en';
 }
 function Brand({ home }) {
-  return <a className="brand" href={home} aria-label="Open World Aviation — Home"><img src="/brand/logo-complete.svg" alt="Open World Aviation" width="1316" height="254" /></a>;
+  return <a className="brand" href={home} aria-label="Open World Aviation — Home"><img src="/brand/logo-navbar.svg" alt="Open World Aviation" width="1316" height="254" /></a>;
 }
 function App() {
   const [lang, setLang] = useState(initialLanguage);
@@ -81,7 +81,7 @@ function App() {
     </div></header>
     <main id="main" tabIndex={-1}>
       {isLegal ? <article className="legal-page container"><a className="text-link" href={home}>← {t.back}</a><span className="eyebrow">OPEN WORLD AVIATION</span><h1>{legal[lang][legalIndex].title}</h1>{legalHasPlaceholders && <aside className="draft-notice"><strong>{t.draft}</strong><p>{t.draftText}</p></aside>}<p>{t.englishControls}</p>{legal[lang][legalIndex].lines.map((line, i) => /^\d+\s{2}/.test(line) || (legalIndex === 3 && i > 0 && line.length < 65) ? <h2 key={i}>{line}</h2> : <p key={i} className={line.startsWith('•') ? 'legal-bullet' : ''}>{line.split(/(\[[^\]]+\])/g).map((part, j) => part.startsWith('[') ? <mark key={j}>{part}</mark> : part)}</p>)}</article> : <>
-        <section className="hero hero-cover" id="home"><div className="hero-inner container"><div className="hero-copy"><h1>{t.hero}</h1><p>{t.intro}</p><a className="button hero-cta" href="#services">{t.discover}<ArrowRight size={21}/></a></div><picture className="hero-aircraft"><img src="/images/hero-two-aircraft.jpg" srcSet="/images/hero-two-aircraft-small.jpg 800w, /images/hero-two-aircraft.jpg 1600w" sizes="(max-width: 800px) 100vw, (min-width: 1760px) 970px, 58vw" width="1600" height="900" alt={lang === 'es' ? 'Dos aeronaves ejecutivas estacionadas en la plataforma de un aeropuerto' : 'Two business aircraft parked on an airport apron'} fetchPriority="high" decoding="async"/></picture></div></section>
+        <section className="hero hero-cover" id="home"><div className="hero-inner container"><div className="hero-copy"><h1>{t.hero}</h1><p>{t.intro}</p><a className="button hero-cta" href="#services">{t.discover}<ArrowRight size={21}/></a></div><div className="hero-aircraft"><img src="/images/hero-two-aircraft-approved.png" width="1600" height="900" alt={lang === 'es' ? 'Dos aeronaves ejecutivas estacionadas en la plataforma de un aeropuerto' : 'Two business aircraft parked on an airport apron'} fetchPriority="high" decoding="async"/></div></div></section>
         <FlightPlanner lang={lang}/>
         <section className="section" id="services" aria-labelledby="services-title">
           <header className="services-heading">

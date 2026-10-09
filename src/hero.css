@@ -1,42 +1,56 @@
-/* Separate the copy from the photograph so neither aircraft is obscured. */
-.hero-cover { width: 100%; min-height: 0; display: block; padding: 0; background: #f4f7f9; isolation: isolate; }
-.hero-cover::before { display: none; }
-.hero-cover .hero-inner {
-  width: min(1680px, calc(100% - 80px));
-  display: grid;
-  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
-  align-items: center; gap: clamp(32px, 4vw, 64px);
-  min-height: 0; padding-block: 148px 64px;
+/* Full-width photograph with the copy over the clear apron below the aircraft. */
+.hero-cover {
+  --hero-headroom: clamp(0px, calc(84px - 7.5vw), 60px);
+  position: relative; isolation: isolate;
+  width: 100%; min-height: 0; display: block; padding: 0;
+  background: #0b2234;
 }
-.hero-cover .hero-copy { position: relative; inset: auto; width: auto; min-width: 0; color: var(--ink); }
-.hero-cover h1 {
-  max-width: 100%; margin: 0 0 24px;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(42px, 4vw, 66px); font-weight: 400;
-  line-height: 1.04; letter-spacing: -2px; text-wrap: balance;
-  text-shadow: none; color: var(--ink);
+.hero-cover::before {
+  content: ''; display: block; position: absolute;
+  inset: 0 0 auto; height: var(--hero-headroom); z-index: -1;
+  background: #a29488;
+  pointer-events: none;
 }
-.hero-cover .hero-copy > p { max-width: 480px; color: #476174; font-size: 16px; line-height: 1.7; text-shadow: none; }
-.hero-cover .hero-cta { margin-top: 28px; min-width: 228px; padding: 15px 18px; border: 1px solid #b59a67; border-radius: 0; color: #fff; background: #153f5b; font-size: 12px; }
-.hero-cover .hero-cta:hover { background: #1c5578; border-color: #a78850; }
-.hero-aircraft { display: block; min-width: 0; }
+.hero-aircraft {
+  display: block; position: absolute;
+  inset: var(--hero-headroom) 0 auto;
+  width: 100%; margin: 0; z-index: -1;
+}
 .hero-aircraft img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
+.hero-aircraft::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, transparent 76%, #0b223466 91%, #0b2234 100%);
+}
+.hero-cover .hero-inner {
+  width: min(1360px, calc(100% - 112px));
+  display: block; min-height: 0;
+  padding-block: calc(var(--hero-headroom) + 51vw) 44px;
+}
+.hero-cover .hero-copy { position: relative; inset: auto; width: min(840px, 100%); min-width: 0; color: #fff; }
+.hero-cover h1 {
+  max-width: 100%; margin: 0 0 18px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(42px, 3.8vw, 60px); font-weight: 400;
+  line-height: 1.04; letter-spacing: -2px; text-wrap: balance;
+  text-shadow: 0 2px 18px #07131f50; color: #fff;
+}
+.hero-cover .hero-copy > p { max-width: 640px; color: #f1f5f8; font-size: 16px; line-height: 1.65; text-shadow: none; }
+.hero-cover .hero-cta { margin-top: 22px; min-width: 228px; padding: 15px 18px; border: 1px solid #c6ad78; border-radius: 0; color: #fff; background: #0b223466; font-size: 12px; }
+.hero-cover .hero-cta:hover { background: #21475e; border-color: #e0c792; }
 @media (max-width: 1100px) {
-  .hero-cover .hero-inner { width: calc(100% - 48px); gap: 28px; padding-block: 120px 52px; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
-  .hero-cover h1 { font-size: clamp(36px, 4.2vw, 46px); letter-spacing: -1.4px; }
-  .hero-cover .hero-copy > p { font-size: 15px; }
+  .hero-cover .hero-inner { width: calc(100% - 72px); }
+  .hero-cover .hero-copy { width: min(740px, 100%); }
+  .hero-cover h1 { font-size: clamp(38px, 4.5vw, 50px); letter-spacing: -1.5px; }
 }
 @media (max-width: 800px) {
-  .hero-cover .hero-inner { grid-template-columns: minmax(0, 1fr); padding-block: 108px 44px; gap: 32px; }
-  .hero-aircraft { order: -1; }
-  .hero-cover .hero-copy { width: min(100%, 620px); }
-  .hero-cover h1 { max-width: 620px; font-size: clamp(40px, 6vw, 50px); }
-  .hero-cover .hero-copy > p { max-width: 580px; font-size: 16px; }
+  .hero-cover .hero-inner { width: calc(100% - 48px); padding-bottom: 40px; }
+  .hero-cover .hero-copy { width: min(620px, 100%); }
+  .hero-cover h1 { font-size: clamp(38px, 5.5vw, 44px); }
+  .hero-cover .hero-copy > p { max-width: 580px; }
 }
 @media (max-width: 560px) {
-  .hero-cover .hero-inner { width: calc(100% - 40px); padding-block: 96px 36px; gap: 28px; }
-  .hero-aircraft { width: calc(100% + 40px); margin-inline: -20px; }
-  .hero-cover h1 { font-size: clamp(36px, 9.6vw, 46px); letter-spacing: -1.2px; margin-bottom: 20px; }
+  .hero-cover .hero-inner { width: calc(100% - 40px); padding-bottom: 36px; }
+  .hero-cover h1 { font-size: clamp(36px, 9.6vw, 44px); letter-spacing: -1.2px; margin-bottom: 18px; }
   .hero-cover .hero-copy > p { font-size: 15px; line-height: 1.7; }
   .hero-cover .hero-cta { margin-top: 24px; min-width: 220px; }
 }
