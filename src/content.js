@@ -62,6 +62,5 @@ export const contactDetails = [
   { label: 'fernando@openworldaviation.com', href: 'mailto:fernando@openworldaviation.com', type: 'email' },
   { label: 'contact@openworldaviation.com', href: 'mailto:contact@openworldaviation.com', type: 'email' },
   { label: '+1 (305) 430-5398', href: 'tel:+13054305398', type: 'phone' },
-  { label: '+54 (9 11) 6801-5259', href: 'tel:+5491168015259', type: 'phone' },
   { label: 'openworldaviation.com', href: 'https://openworldaviation.com/', type: 'web' },
 ];

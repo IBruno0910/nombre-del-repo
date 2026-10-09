@@ -30,3 +30,7 @@ Actualización del 8 de octubre de 2026 con los adjuntos adicionales del usuario
 - `public/images/process-apron.jpg`: aeronave y equipos de asistencia en la plataforma, original de 1600 × 900 px. Fondo de Cómo trabajamos con degradado claro para los tres pasos. Variante `-small.jpg` de 800 px de ancho.
 
 Estas imágenes se convirtieron a JPEG con calidad 88, sin reconstrucción generativa, ampliación ni cambios en su contenido.
+
+## Portada — 9 de octubre de 2026
+
+`public/images/hero-two-aircraft.jpg` usa la foto de dos aeronaves ejecutivas en plataforma suministrada por el usuario (1600 × 900 px). La variante `-small.jpg` tiene 800 px de ancho; ambas conservan la fotografía completa, sin reconstrucción ni recorte. El texto y la fotografía ocupan áreas separadas: columnas en escritorio e imagen sobre el texto en móvil. Así los aviones quedan visibles y el texto mantiene contraste constante sin superposición.

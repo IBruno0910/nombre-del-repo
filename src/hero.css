@@ -1,0 +1,42 @@
+/* Separate the copy from the photograph so neither aircraft is obscured. */
+.hero-cover { width: 100%; min-height: 0; display: block; padding: 0; background: #f4f7f9; isolation: isolate; }
+.hero-cover::before { display: none; }
+.hero-cover .hero-inner {
+  width: min(1680px, calc(100% - 80px));
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  align-items: center; gap: clamp(32px, 4vw, 64px);
+  min-height: 0; padding-block: 148px 64px;
+}
+.hero-cover .hero-copy { position: relative; inset: auto; width: auto; min-width: 0; color: var(--ink); }
+.hero-cover h1 {
+  max-width: 100%; margin: 0 0 24px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(42px, 4vw, 66px); font-weight: 400;
+  line-height: 1.04; letter-spacing: -2px; text-wrap: balance;
+  text-shadow: none; color: var(--ink);
+}
+.hero-cover .hero-copy > p { max-width: 480px; color: #476174; font-size: 16px; line-height: 1.7; text-shadow: none; }
+.hero-cover .hero-cta { margin-top: 28px; min-width: 228px; padding: 15px 18px; border: 1px solid #b59a67; border-radius: 0; color: #fff; background: #153f5b; font-size: 12px; }
+.hero-cover .hero-cta:hover { background: #1c5578; border-color: #a78850; }
+.hero-aircraft { display: block; min-width: 0; }
+.hero-aircraft img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
+@media (max-width: 1100px) {
+  .hero-cover .hero-inner { width: calc(100% - 48px); gap: 28px; padding-block: 120px 52px; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+  .hero-cover h1 { font-size: clamp(36px, 4.2vw, 46px); letter-spacing: -1.4px; }
+  .hero-cover .hero-copy > p { font-size: 15px; }
+}
+@media (max-width: 800px) {
+  .hero-cover .hero-inner { grid-template-columns: minmax(0, 1fr); padding-block: 108px 44px; gap: 32px; }
+  .hero-aircraft { order: -1; }
+  .hero-cover .hero-copy { width: min(100%, 620px); }
+  .hero-cover h1 { max-width: 620px; font-size: clamp(40px, 6vw, 50px); }
+  .hero-cover .hero-copy > p { max-width: 580px; font-size: 16px; }
+}
+@media (max-width: 560px) {
+  .hero-cover .hero-inner { width: calc(100% - 40px); padding-block: 96px 36px; gap: 28px; }
+  .hero-aircraft { width: calc(100% + 40px); margin-inline: -20px; }
+  .hero-cover h1 { font-size: clamp(36px, 9.6vw, 46px); letter-spacing: -1.2px; margin-bottom: 20px; }
+  .hero-cover .hero-copy > p { font-size: 15px; line-height: 1.7; }
+  .hero-cover .hero-cta { margin-top: 24px; min-width: 220px; }
+}

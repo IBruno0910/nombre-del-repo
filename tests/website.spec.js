@@ -140,7 +140,6 @@ test('approved bilingual headings, metadata, navigation and public contact links
       ['fernando@openworldaviation.com', 'mailto:fernando@openworldaviation.com'],
       ['contact@openworldaviation.com', 'mailto:contact@openworldaviation.com'],
       ['+1 (305) 430-5398', 'tel:+13054305398'],
-      ['+54 (9 11) 6801-5259', 'tel:+5491168015259'],
       ['openworldaviation.com', 'https://openworldaviation.com/'],
     ]) await expect(links.getByRole('link', { name: label, exact: true })).toHaveAttribute('href', href);
     await expect(page.locator('.segment-strip')).toHaveCount(0);

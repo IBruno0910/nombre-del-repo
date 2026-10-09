@@ -227,51 +227,7 @@
 .header-overlay .languages button,.header-overlay .languages span{color:#1c4057}
 .header-overlay .brand img{filter:brightness(0) saturate(100%)}
 
-.hero-cover{
-  width:100%;
-  min-height:0;
-  display:block;
-  padding:0;
-  background-image:
-    linear-gradient(90deg,#07141f26 0,#07141f05 50%,transparent 72%),
-    linear-gradient(0deg,#07131fc7 0,#07131f5c 26%,transparent 58%),
-    url('/images/executive-flight-hero.jpg');
-  background-size:cover,cover,112% auto;
-  background-position:center,center,center bottom;
-  background-repeat:no-repeat;
-  isolation:isolate;
-}
-.hero-cover:before{display:none}
-.hero-cover .hero-inner{min-height:0;position:relative;padding-block:clamp(430px,32vw,580px) 40px}
-.hero-cover .hero-copy{position:relative;left:auto;bottom:auto;color:#fff;width:min(680px,74%);z-index:2}
-.hero-cover h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(43px,4.2vw,62px);font-weight:400;line-height:.98;letter-spacing:-2.5px;margin:0 0 12px;text-wrap:balance;text-shadow:0 2px 24px #06111d55}
-.hero-cover .hero-copy>p{max-width:480px;color:#fff;font-size:16px;line-height:1.55;text-shadow:0 1px 15px #07172599}
-.hero-cover .hero-cta{margin-top:17px;min-width:228px;color:#fff;background:#07131f1f;border:1px solid #c6ad78;border-radius:0;padding:13px 15px;font-size:12px;backdrop-filter:blur(3px)}
-.hero-cover .hero-cta:hover{background:#102c3cc7;border-color:#dbc799}
 .contact-signature img{width:78px;height:auto;flex:0 0 auto;filter:none;mix-blend-mode:multiply}
-
-@media(min-width:561px) and (max-width:1300px){
-  .hero-cover{background-size:cover,cover,auto 118%;background-position:center,center,54% 100%}
-}
-@media(max-width:800px){
-  .header-overlay{height:82px}
-  .header-overlay .navigation{background:#fffffff4;border-bottom:1px solid #dce8f0;box-shadow:0 15px 30px #0a26331f}
-  .header-overlay .navigation a:hover{background:#edf5fa}
-  .hero-cover,.hero-cover .hero-inner{min-height:0}
-  .hero-cover .hero-inner{padding-block:420px 40px}
-  .hero-cover{background-size:cover,cover,auto 118%;background-position:center,center,54% 100%}
-  .hero-cover .hero-copy{width:min(520px,80%)}
-}
-@media(max-width:560px){
-  .header-overlay{height:76px}
-  .hero-cover,.hero-cover .hero-inner{min-height:0}
-  .hero-cover{background-image:linear-gradient(0deg,#06131fd6 0,#06131f75 39%,transparent 72%),url('/images/executive-flight-hero-small.jpg');background-size:cover,auto 120%;background-position:center,51% bottom}
-  .hero-cover .hero-inner{width:calc(100% - 40px);padding-block:440px 36px}
-  .hero-cover .hero-copy{left:auto;bottom:auto;width:100%}
-  .hero-cover h1{font-size:clamp(38px,10vw,44px);letter-spacing:-1.5px;line-height:1}
-  .hero-cover .hero-copy>p{font-size:14px;max-width:330px}
-  .hero-cover .hero-cta{min-width:220px;padding:14px 15px}
-}
 
 /* Text layout for the approved bilingual copy. */
 #main:focus{outline:none}
